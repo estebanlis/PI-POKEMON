@@ -33,7 +33,7 @@ conn.sync({ force: true }).then(async () => {
     await Type.bulkCreate(types);
 
   } catch (error) {
-      console.log('Erro from api Types: ',error.message);
+      console.log('Error from api Types: ',error.message);
   }
   server.listen(3001, () => {
     console.log('%s listening at 3001'); // eslint-disable-line no-console
