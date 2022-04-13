@@ -8,13 +8,18 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
-      get() {
-        return this.getDataValue('id')+'B';
+      
+    },
+    idB :{
+      type: DataTypes.VIRTUAL,
+      get(){
+        return this.id+'B';
       }
     },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true
     },
     hp: {
       type: DataTypes.INTEGER,
