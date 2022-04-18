@@ -8,6 +8,13 @@ export const getPokemones = () => dispatch => {
 export const searchPok = (value) => dispatch => {
     return fetch(`http://localhost:3001/pokemon/?name=${value}`)
     .then(response => response.json())
-    .then(data => dispatch({type: 'SEARCH_POKEMONE',payload: data}))
+    .then(data => dispatch({type: 'SEARCH_POKEMON',payload: data}))
    
+};
+
+export const setLoading = (payload) =>{
+    return{
+        type:'setLoading',
+        payload
+    }
 };

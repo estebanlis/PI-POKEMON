@@ -16,9 +16,9 @@ a{
 }
 
 .contenedor{
-  width: 80%;
-  max-width: 75em;
-  margin: 1.25em auto;
+  /* width: 80%; */
+  /* max-width: 75em; */
+  /* margin: 1.25em auto; */
   display: grid;
   grid-gap: 0;
   grid-template-columns: 1fr;
@@ -41,9 +41,9 @@ a{
   
 }
 .header .logo{
-  margin-bottom: 1.25em;
+  margin-bottom: 5.25em;
   text-transform: uppercase;
-  text-align: left;
+  text-align: center;
   letter-spacing: 3px;
   
 }
@@ -67,11 +67,12 @@ a{
   margin-bottom: 0.93em;
 }
 .menu{
+  height: 30px;
   grid-area: menu;
   border-top: 1px solid #000;
   border-bottom: 1px solid #000;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   background-color: #fff;
   padding: 0 10px 0 10px;
 }
@@ -103,7 +104,7 @@ a{
 
 .cardPok img{
   display: block;
- 
+  height: 90px;
   max-width: 150px;
   position: relative;
   margin: 10px auto;
@@ -121,9 +122,31 @@ a{
 }
 
 .homeContent{
+  max-width: 75em; 
+  margin: 1.25em auto;
   display: grid;
   grid-template-columns: auto auto auto;
   gap: 20px;
   
   justify-content: space-evenly;
+}
+.footer{
+  text-align: center;
+}
+
+.paginado{
+
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+}
+
+.paginado div {
+  margin: auto;
+  padding: 10px;
+}
+
+.boxSearch{
+  margin: auto;
 }

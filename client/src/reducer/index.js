@@ -13,12 +13,18 @@ const pokemones = (state = initialState, action) => {
                     loading: false,
                     pokemones: action.payload
                 };
-            case 'SEARCH_POKEMONE':
+            case 'SEARCH_POKEMON':
                     return {
                         state,
                         loading: false,
                         searchResult: action.payload
-                    };    
+                    };
+            case 'setLoading':
+                        return {
+                            state,
+                            loading: action.payload,
+                            
+                        };                     
 
         
             default: return state;
