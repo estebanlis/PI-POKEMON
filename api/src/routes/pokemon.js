@@ -211,6 +211,7 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+    
     const {name,hp,attack,defense,speed,height,weight,image,types} = req.body;
 
     try {
