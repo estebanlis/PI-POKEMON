@@ -7,19 +7,26 @@ export default function Home() {
 
    
     const [currentPage, setCurrentPage] = useState({
+                                                    
+                                                    index: 0,
                                                     page : 0,
                                                     btnNext : false,
                                                     btnPrev: true
-    });
-    let pokes = useSelector(state => state.pokemones);
-    let load = useSelector(state => state.loading);
-    const [filters, setFilters] = useState({
-                                                        PokLocales : false,
-                                                        PokApi : false,
-                                                        todos: true
+                                                  });
 
-                                                 });
-    let pokesFront = [];
+    let pokes = useSelector(state => state.pokemones);
+
+    let load = useSelector(state => state.loading);
+
+    const [filters, setFilters] = useState({
+                                            PokLocales : false,
+                                            PokApi : false,
+                                            todos: true
+
+                                           });
+
+    //let pokesFront = [];
+    //let totalPages;
      
 
     let dispatch = useDispatch();
@@ -27,62 +34,89 @@ export default function Home() {
     useEffect(() => {
 
         dispatch(getPokemones());
-
-        
-        
+  
     },[]);
 
     //if(pokes) console.log(pokes.length);
 
-    if(!load) pokesFront = pokes;
+    //if(!load) {pokesFront = pokes; console.log('pase')}
 
     const pokesView = () => {
       
       if(!load){
 
-        //let pokesFront = pokes;
-
-        //console.log(pokesFront);
-
         if(filters.PokApi) {
 
-          pokesFront = pokesFront.filter( p => typeof p.id !== 'string' )
-
-        }
-
-        if(filters.PokLocales) {
-
-          pokesFront = pokesFront.filter( p => typeof p.id === 'string' )
-
-        }
-
-        if(pokesFront.length > 12){
-          //console.log('currentPage: ',currentPage)
-          return pokesFront.slice(currentPage.page,currentPage.page + 12);
+          const pokesFront = pokes.filter( p => typeof p.id !== 'string' )
+          if(pokesFront.length > 12){
+          
+            const totalPages = Math.ceil(pokesFront.length/12);
+            
+         
+           return pokesFront.slice(currentPage.page,currentPage.page + 12)
+          
         }else{
           return pokesFront;
         }
+      }
+
+        if(filters.PokLocales) {
+
+          const pokesFront = pokes.filter( p => typeof p.id === 'string' )
+          if(pokesFront.length > 12){
+          
+            const totalPages = Math.ceil(pokesFront.length/12);
+            
+         
+           return pokesFront.slice(currentPage.page,currentPage.page + 12)
+          
+        }else{
+          return pokesFront;
+        }
+
+        }
+
+        
 
       }
      
     }
 
-    const prevPage = () => {
-      if(currentPage.page >=12){
-          setCurrentPage({...currentPage, 
-                          page : currentPage.page - 12
+    const nextPage = () => {
+      if(currentPage.index < totalPages - 2){
+          setCurrentPage({...currentPage,
+                          btnPrev: false, 
+                          page : currentPage.page + 12,
+                          index : currentPage.index + 1
                         });
-
-    }else{setCurrentPage({...currentPage, btnPrev : true}); }
+                        console.log(currentPage);
+    }else{setCurrentPage({...currentPage,
+                             btnNext : true,
+                             page : currentPage.page + 12,
+                             index: currentPage.index + 1
+                            }); 
+                            console.log(currentPage);
+                          }
     }
 
-    const nextPage = () => {
-      console.log('length pokesFront: ',pokesFront.length);
-      console.log('length pokesView: ',pokesView().length);
-      console.log('currentPage fnext in: ',currentPage)
-      if(currentPage.page < pokesFront.length) {setCurrentPage({...currentPage, 
-        btnPrev: false,
-        page : currentPage.page + 12}); console.log('currentPage fnext out: ',currentPage)}
+    const prevPage = () => {
+      
+      if(currentPage.index > 1) {
+        setCurrentPage({...currentPage, 
+                           btnNext: false,
+                           page : currentPage.page - 12,
+                           index: currentPage.index - 1
+                          }); 
+                          console.log(currentPage);
+        }else{
+          setCurrentPage({
+                          ...currentPage,
+                          index: currentPage.index - 1,
+                          page : currentPage.page - 12,
+                          btnPrev: true
+          })
+          console.log(currentPage);
+        }
       
      
     }
@@ -132,7 +166,7 @@ export default function Home() {
       <div className="homeContent">
       
 
-        {load? <p>Cargando..</p> : pokesView() && pokesView().map(p => (
+        {load? <p>Cargando..</p> : pokesView().map(p => (
             <CardPokes key={p.id} id={p.id} name={p.name} image={p.image} types={p.type} />
         ))}
     </div>
