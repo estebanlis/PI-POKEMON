@@ -1,11 +1,11 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getPokemones } from '../actions';
 import CardPokes from './CardPokes';
 
 export default function Home() {
 
-   
+  console.log('pase');
     const [currentPage, setCurrentPage] = useState({
                                                     
                                                     index: 0,
@@ -25,8 +25,8 @@ export default function Home() {
 
                                            });
 
-    //let pokesFront = [];
-    //let totalPages;
+    const offset = 8;
+    const totalPages = useRef(0);
      
 
     let dispatch = useDispatch();
@@ -42,82 +42,117 @@ export default function Home() {
     //if(!load) {pokesFront = pokes; console.log('pase')}
 
     const pokesView = () => {
-      
+
       if(!load){
+        let pokesFront = pokes;
 
         if(filters.PokApi) {
 
-          const pokesFront = pokes.filter( p => typeof p.id !== 'string' )
-          if(pokesFront.length > 12){
-          
-            const totalPages = Math.ceil(pokesFront.length/12);
-            
+           pokesFront = pokesFront.filter( p => typeof p.id !== 'string' )
+
+          if(pokesFront.length > 12 ){
+            totalPages.current = Math.ceil(pokesFront.length/offset);
+            return pokesFront.slice(currentPage.page,currentPage.page + offset)
+          }else{
+            return pokesFront;
+          }
          
-           return pokesFront.slice(currentPage.page,currentPage.page + 12)
-          
-        }else{
-          return pokesFront;
         }
-      }
 
         if(filters.PokLocales) {
 
-          const pokesFront = pokes.filter( p => typeof p.id === 'string' )
-          if(pokesFront.length > 12){
-          
-            const totalPages = Math.ceil(pokesFront.length/12);
-            
-         
-           return pokesFront.slice(currentPage.page,currentPage.page + 12)
-          
-        }else{
-          return pokesFront;
-        }
+           pokesFront = pokesFront.filter( p => typeof p.id === 'string' )
 
+          if(pokesFront.length > offset ){
+            totalPages.current = Math.ceil(pokesFront.length/offset);
+            return pokesFront.slice(currentPage.page,currentPage.page + offset)
+          }else{
+            totalPages.current = Math.ceil(pokesFront.length/offset);
+            return pokesFront;
+          }
+                   
         }
-
+        if(pokesFront.length > offset){
+          totalPages.current = Math.ceil(pokesFront.length/offset);
         
+          return pokesFront.slice(currentPage.page,currentPage.page + offset)
+
+        }
+        return pokesFront;
+
 
       }
+      
+
+
+     }
+
+     useEffect(() => {
+     if(load) return;
      
-    }
+      if(totalPages.current < 2) {
+        setCurrentPage({
+          index: 0,
+          page : 0,
+          btnNext : true,
+          btnPrev: true
+  
+        })
+
+      }else{
+
+        setCurrentPage({
+          index: 0,
+          page : 0,
+          btnNext : false,
+          btnPrev: true
+  
+        })
+
+      }
+      
+      
+      },[filters]);
+
 
     const nextPage = () => {
-      if(currentPage.index < totalPages - 2){
+
+     
+       if(currentPage.index < totalPages.current - 2){
           setCurrentPage({...currentPage,
                           btnPrev: false, 
-                          page : currentPage.page + 12,
+                          page : currentPage.page + offset,
                           index : currentPage.index + 1
                         });
-                        console.log(currentPage);
-    }else{setCurrentPage({...currentPage,
+                       
+        }else{setCurrentPage({...currentPage,
                              btnNext : true,
-                             page : currentPage.page + 12,
+                             page : currentPage.page + offset,
                              index: currentPage.index + 1
                             }); 
-                            console.log(currentPage);
-                          }
+                           
+                          } 
     }
 
     const prevPage = () => {
       
-      if(currentPage.index > 1) {
+       if(currentPage.index > 1) {
         setCurrentPage({...currentPage, 
                            btnNext: false,
-                           page : currentPage.page - 12,
+                           page : currentPage.page - offset,
                            index: currentPage.index - 1
                           }); 
-                          console.log(currentPage);
+                          
         }else{
           setCurrentPage({
                           ...currentPage,
                           index: currentPage.index - 1,
-                          page : currentPage.page - 12,
+                          page : currentPage.page - offset,
                           btnPrev: true
           })
-          console.log(currentPage);
+         
         }
-      
+       
      
     }
 
@@ -142,7 +177,7 @@ export default function Home() {
         PokApi: false                
 });
       
-      console.log(filters);
+      
     }
 
    
@@ -166,9 +201,9 @@ export default function Home() {
       <div className="homeContent">
       
 
-        {load? <p>Cargando..</p> : pokesView().map(p => (
+        {load? <p>Cargando..</p> : pokesView().length ? pokesView().map(p => (
             <CardPokes key={p.id} id={p.id} name={p.name} image={p.image} types={p.type} />
-        ))}
+        )) : <p>Not fount pokemon</p>}
     </div>
 
       </>
