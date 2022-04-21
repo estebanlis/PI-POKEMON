@@ -11,14 +11,14 @@ export default function SearchResult() {
     let load = useSelector(state => state.loading);
     let dispatch = useDispatch();
 
-    useEffect(() => {
+     useEffect(() => {
 
-        return () => {dispatch(setLoading(true));}
+        return () => {console.log('useEffect serachResult '); dispatch(setLoading(true));}
              
-    },[]);
+    },[dispatch]);
 
-    console.log(pok);
-    console.log(load);
+    if(!load)console.log(pok);
+    console.log('Search Result load: ',load);
 
     
   return (

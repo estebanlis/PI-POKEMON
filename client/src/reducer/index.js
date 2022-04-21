@@ -1,7 +1,8 @@
 const initialState = {
     pokemones: [],
     loading : true,
-    searchResult: []
+    searchResult: [],
+    typesPok:[]
 };
 
 const pokemones = (state = initialState, action) => {
@@ -9,19 +10,29 @@ const pokemones = (state = initialState, action) => {
        
             case 'GET_POKEMONES':
                 return {
-                    state,
+                    ...state,
                     loading: false,
                     pokemones: action.payload
                 };
+
             case 'SEARCH_POKEMON':
                     return {
-                        state,
+                        ...state,
                         loading: false,
                         searchResult: action.payload
                     };
+
+            case 'GET_TYPES':
+                    return {
+                            ...state,
+                           
+                            typesPok: action.payload
+                        };        
+                   
+
             case 'setLoading':
                         return {
-                            state,
+                            ...state,
                             loading: action.payload,
                             
                         };                     

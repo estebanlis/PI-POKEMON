@@ -18,3 +18,10 @@ export const setLoading = (payload) =>{
         payload
     }
 };
+
+export const getTypes = () => dispatch => {
+    return fetch('http://localhost:3001/type/')
+    .then(response => response.json())
+    .then(data => dispatch({type: 'GET_TYPES',payload: data}))
+   
+};

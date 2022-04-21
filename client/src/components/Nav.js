@@ -9,22 +9,21 @@ export default function Nav() {
   return (
       <>
         <header className='header'>
-      <div className='logo'>
-          {/* <p  className='iniciales-logo'>PK</p> 
-         <a href='#'> <h1></h1></a>*/}
-        <Link to='home'><img src={imageLogo} alt='logo'/></Link>
-      </div>
+          <div className='logo'>
+         
+            <Link to='home'><img src={imageLogo} alt='logo'/></Link>
+          </div>
      
-    </header>
-     <nav className='menu'>
+         </header>
+        <nav className='menu'>
 
-         <SearchBox />
+           <SearchBox/>
      
-      </nav>
+        </nav>
          
          <Outlet/>
 
-         <Footer />
+         <Footer/>
       </>
     
   )

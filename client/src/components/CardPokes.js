@@ -26,8 +26,8 @@ export default function CardPokes(props) {
         <img src={props.image} alt='imagePoke'/>
         <h2 className='namePok'><p>{props.name}</p></h2>
         <div className='typesPok'>
-           {props.types && props.types.map((typ) =>(
-               <span>{typ}</span>
+           {props.types && props.types.map((typ,index) =>(
+               <span key={index}>{typ}</span>
            )) } 
         </div>
 

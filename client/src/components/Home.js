@@ -1,11 +1,20 @@
 import {useEffect, useRef, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getPokemones } from '../actions';
+import { getPokemones, getTypes } from '../actions';
 import CardPokes from './CardPokes';
+
 
 export default function Home() {
 
-  console.log('pase');
+  
+    let pokes = useSelector(state => state.pokemones);
+
+    let load = useSelector(state => state.loading);
+    let types = useSelector(state => state.typesPok);
+
+    
+
+    
     const [currentPage, setCurrentPage] = useState({
                                                     
                                                     index: 0,
@@ -14,18 +23,16 @@ export default function Home() {
                                                     btnPrev: true
                                                   });
 
-    let pokes = useSelector(state => state.pokemones);
-
-    let load = useSelector(state => state.loading);
+    
 
     const [filters, setFilters] = useState({
                                             PokLocales : false,
                                             PokApi : false,
-                                            todos: true
-
+                                            todos: true,
+                                            TypePok:''
                                            });
 
-    const offset = 8;
+    const offset = 12;
     const totalPages = useRef(0);
      
 
@@ -33,51 +40,81 @@ export default function Home() {
 
     useEffect(() => {
 
+        dispatch(getTypes());
         dispatch(getPokemones());
+        
+        
+       
   
-    },[]);
+    },[dispatch]);
 
-    //if(pokes) console.log(pokes.length);
+    
 
-    //if(!load) {pokesFront = pokes; console.log('pase')}
+   
 
     const pokesView = () => {
 
-      if(!load){
+      
         let pokesFront = pokes;
 
         if(filters.PokApi) {
 
-           pokesFront = pokesFront.filter( p => typeof p.id !== 'string' )
+                             pokesFront = pokesFront.filter( p => typeof p.id !== 'string' );
 
-          if(pokesFront.length > 12 ){
-            totalPages.current = Math.ceil(pokesFront.length/offset);
-            return pokesFront.slice(currentPage.page,currentPage.page + offset)
-          }else{
-            return pokesFront;
-          }
-         
-        }
+                             if(filters.TypePok !== ''){
+                                              pokesFront = pokesFront.filter(p => {
+                                              if(p.type.find( t => t === filters.TypePok )) return p;
+                                              })
+                                              console.log('tamaño: ',pokesFront.length  )
+                              }
+
+                              if(pokesFront.length > offset ){
+                                              totalPages.current = Math.ceil(pokesFront.length/offset);
+                                              return pokesFront.slice(currentPage.page,currentPage.page + offset)
+                              }else{
+                                    totalPages.current = 1;
+                                    return pokesFront;
+                              }
+         }
 
         if(filters.PokLocales) {
 
-           pokesFront = pokesFront.filter( p => typeof p.id === 'string' )
+                              pokesFront = pokesFront.filter( p => typeof p.id === 'string' )
 
-          if(pokesFront.length > offset ){
-            totalPages.current = Math.ceil(pokesFront.length/offset);
-            return pokesFront.slice(currentPage.page,currentPage.page + offset)
-          }else{
-            totalPages.current = Math.ceil(pokesFront.length/offset);
-            return pokesFront;
+                              if(filters.TypePok !== ''){
+                                            pokesFront = pokesFront.filter(p => {
+                                            if(p.type.find( t => t === filters.TypePok )) return p;
+                                            })
+                                            console.log('tamaño: ',pokesFront.length  )
+
+                              }
+                              if(pokesFront.length > offset ){
+                                            totalPages.current = Math.ceil(pokesFront.length/offset);
+                                            return pokesFront.slice(currentPage.page,currentPage.page + offset)
+                              }else{
+                                      
+                                      return pokesFront;
+                              }
+         }
+
+        if(filters.TypePok !== ''){
+                              pokesFront = pokesFront.filter(p => {
+                              if(p.type.find( t => t === filters.TypePok )) return p;
+                              })
+                              console.log('tamaño: ',pokesFront.length  )
+
           }
-                   
-        }
+
         if(pokesFront.length > offset){
           totalPages.current = Math.ceil(pokesFront.length/offset);
-        
+          console.log('todo, tamaño mayor a 12' );
           return pokesFront.slice(currentPage.page,currentPage.page + offset)
 
+          
+
         }
+        totalPages.current = 1;
+        console.log('todo, tamaño menor a 12' );
         return pokesFront;
 
 
@@ -85,10 +122,12 @@ export default function Home() {
       
 
 
-     }
+     
 
      useEffect(() => {
-     if(load) return;
+     if(load ) return;
+
+     console.log('total pages: ',totalPages.current)
      
       if(totalPages.current < 2) {
         setCurrentPage({
@@ -97,7 +136,8 @@ export default function Home() {
           btnNext : true,
           btnPrev: true
   
-        })
+        });
+        
 
       }else{
 
@@ -107,12 +147,13 @@ export default function Home() {
           btnNext : false,
           btnPrev: true
   
-        })
+        });
+        
 
       }
       
       
-      },[filters]);
+      },[filters,load]);
 
 
     const nextPage = () => {
@@ -156,23 +197,40 @@ export default function Home() {
      
     }
 
-    const handleCheckbox = event =>{
+    const handleFilters = event =>{
+
+      
+      console.log(event.target.name);
+
+      if(event.target.name === 'TypePok'){
+        return setFilters({
+                        ...filters,
+                        TypePok : event.target.value,
+                                     
+        });
+      }
 
       if(event.target.value === 'PokApi'){
-        return setFilters({[event.target.value] : event.target.checked,
+        return setFilters({
+                        TypePok:'',
+                        [event.target.value] : event.target.checked,
                         todos: false,
                         PokLocales: false                
         });
       }
 
       if(event.target.value === 'PokLocales'){
-        return setFilters({[event.target.value] : event.target.checked,
+        return setFilters({
+                        TypePok:'',
+                        [event.target.value] : event.target.checked,
                         todos: false,
                         PokApi: false                
         });
       }
       
-      setFilters({[event.target.value] : event.target.checked,
+      setFilters({
+        TypePok:'',
+        [event.target.value] : event.target.checked,
         PokLocales: false,
         PokApi: false                
 });
@@ -188,10 +246,18 @@ export default function Home() {
             <button onClick={prevPage} disabled ={currentPage.btnPrev}>Anterior</button>
             <button onClick={nextPage} disabled ={currentPage.btnNext}>Siguiente</button> 
         </div>
-        <div>
-              Todos <input onChange={handleCheckbox} type='checkbox' name='filters' value='todos' checked={filters.todos}/>
-              Pkemones API <input onChange={handleCheckbox} type='checkbox' name='filters' value='PokApi'checked={filters.PokApi}/>
-              Pkemones Locales <input onChange={handleCheckbox} type='checkbox' name='filters' value='PokLocales' checked={filters.PokLocales}/>
+        <div className='filters'>
+              <span>Todos <input onChange={handleFilters} type='checkbox' name='filters' value='todos' checked={filters.todos}/></span>
+              <span>API <input onChange={handleFilters} type='checkbox' name='filters' value='PokApi'checked={filters.PokApi}/></span>
+              <span>Local <input onChange={handleFilters} type='checkbox' name='filters' value='PokLocales' checked={filters.PokLocales}/></span>
+              <select  value={filters.TypePok} name='TypePok' onChange={handleFilters} id="selectType">
+              <option  value='' >Tipos</option>
+                {types && types.map( (t,index) => (
+                  <option  key={index}  value={t.name}>{t.name}</option>
+                ))}
+                
+                
+              </select>
 
         </div>
       
@@ -201,9 +267,9 @@ export default function Home() {
       <div className="homeContent">
       
 
-        {load? <p>Cargando..</p> : pokesView().length ? pokesView().map(p => (
+        {load? <p>Cargando..</p> : pokes && pokesView().length ? pokesView().map(p => (
             <CardPokes key={p.id} id={p.id} name={p.name} image={p.image} types={p.type} />
-        )) : <p>Not fount pokemon</p>}
+        )) : <p>Not found pokemon</p>}
     </div>
 
       </>

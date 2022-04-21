@@ -29,8 +29,13 @@ a{
   'contenido'
   'footer';
 
+  
+
 }
 .header{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   grid-area: header;
   padding: 1.25em;
   background: rgb(246, 235, 18);
@@ -41,11 +46,17 @@ a{
   
 }
 .header .logo{
+  width: 200px;
   margin-bottom: 5.25em;
   text-transform: uppercase;
   text-align: center;
   letter-spacing: 3px;
   
+}
+
+.logo img {
+  -webkit-filter: drop-shadow(5px 5px 5px #222);
+  filter: drop-shadow(5px 5px 5px #222);
 }
 
 .logo h1 {
@@ -100,6 +111,7 @@ a{
   box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15); 
   border-radius: 10px;
   background-color: #fff;
+  height: 210px;
 }
 
 .cardPok img{
@@ -127,11 +139,19 @@ a{
   display: grid;
   grid-template-columns: auto auto auto;
   gap: 20px;
-  
-  justify-content: space-evenly;
+  min-height: 641px;
+  align-content: flex-start;
+
 }
 .footer{
-  text-align: center;
+  display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: #3a3838;
+    text-align: center;
+    color: white;
+    font-weight: 300;
+    min-height: 60px;
 }
 
 .paginado{
@@ -149,4 +169,9 @@ a{
 
 .boxSearch{
   margin: auto;
+}
+
+.filters{
+  display: flex;
+  gap: 15px;
 }
