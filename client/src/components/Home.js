@@ -6,7 +6,7 @@ import CardPokes from './CardPokes';
 
 export default function Home() {
 
-  
+    console.log('pase home')
     let pokes = useSelector(state => state.pokemones);
 
     let load = useSelector(state => state.loading);
@@ -29,7 +29,9 @@ export default function Home() {
                                             PokLocales : false,
                                             PokApi : false,
                                             todos: true,
-                                            TypePok:''
+                                            TypePok:'',
+                                            AZ: false,
+                                            ZA: false
                                            });
 
     const offset = 12;
@@ -39,9 +41,11 @@ export default function Home() {
     let dispatch = useDispatch();
 
     useEffect(() => {
-
+      if(!pokes.length){
         dispatch(getTypes());
         dispatch(getPokemones());
+      }
+        
         
         
        
@@ -65,8 +69,17 @@ export default function Home() {
                                               pokesFront = pokesFront.filter(p => {
                                               if(p.type.find( t => t === filters.TypePok )) return p;
                                               })
-                                              console.log('tamaño: ',pokesFront.length  )
+                                              
                               }
+
+                              if(filters.AZ){
+                                pokesFront = pokesFront.sort(SortArray);
+                              }
+                              
+                              if(filters.ZA){
+                                pokesFront = pokesFront.reverse(SortArray);
+                              }
+                              
 
                               if(pokesFront.length > offset ){
                                               totalPages.current = Math.ceil(pokesFront.length/offset);
@@ -85,9 +98,18 @@ export default function Home() {
                                             pokesFront = pokesFront.filter(p => {
                                             if(p.type.find( t => t === filters.TypePok )) return p;
                                             })
-                                            console.log('tamaño: ',pokesFront.length  )
+                                           
 
                               }
+
+                              if(filters.AZ){
+                                pokesFront = pokesFront.sort(SortArray);
+                              }
+                              
+                              if(filters.ZA){
+                                pokesFront = pokesFront.reverse(SortArray);
+                              }
+
                               if(pokesFront.length > offset ){
                                             totalPages.current = Math.ceil(pokesFront.length/offset);
                                             return pokesFront.slice(currentPage.page,currentPage.page + offset)
@@ -101,20 +123,31 @@ export default function Home() {
                               pokesFront = pokesFront.filter(p => {
                               if(p.type.find( t => t === filters.TypePok )) return p;
                               })
-                              console.log('tamaño: ',pokesFront.length  )
+                             
 
+          }
+          
+          if(filters.AZ){
+            pokesFront = pokesFront.sort(SortArray);
+            console.log('pase todo AZ')
+          }
+          
+          if(filters.ZA){
+            pokesFront = pokesFront.reverse(SortArray);
+            console.log(pokesFront)
+            console.log('pase todo ZA')
           }
 
         if(pokesFront.length > offset){
           totalPages.current = Math.ceil(pokesFront.length/offset);
-          console.log('todo, tamaño mayor a 12' );
+          
           return pokesFront.slice(currentPage.page,currentPage.page + offset)
 
           
 
         }
         totalPages.current = 1;
-        console.log('todo, tamaño menor a 12' );
+        
         return pokesFront;
 
 
@@ -127,7 +160,7 @@ export default function Home() {
      useEffect(() => {
      if(load ) return;
 
-     console.log('total pages: ',totalPages.current)
+     
      
       if(totalPages.current < 2) {
         setCurrentPage({
@@ -200,8 +233,7 @@ export default function Home() {
     const handleFilters = event =>{
 
       
-      console.log(event.target.name);
-
+      
       if(event.target.name === 'TypePok'){
         return setFilters({
                         ...filters,
@@ -219,6 +251,24 @@ export default function Home() {
         });
       }
 
+      if(event.target.value === 'AZ'){
+        return setFilters({
+                        ...filters,
+                        [event.target.value] : event.target.checked,
+                        ZA: false
+                                    
+        });
+      }
+
+      if(event.target.value === 'ZA'){
+        return setFilters({
+                        ...filters,
+                        [event.target.value] : event.target.checked,
+                        AZ: false
+                                    
+        });
+      }
+
       if(event.target.value === 'PokLocales'){
         return setFilters({
                         TypePok:'',
@@ -228,7 +278,7 @@ export default function Home() {
         });
       }
       
-      setFilters({
+      return setFilters({
         TypePok:'',
         [event.target.value] : event.target.checked,
         PokLocales: false,
@@ -238,6 +288,9 @@ export default function Home() {
       
     }
 
+  const  SortArray = (x, y) => {
+      return x.name.localeCompare(y.name);
+  }
    
   return (
       <>
@@ -250,6 +303,8 @@ export default function Home() {
               <span>Todos <input onChange={handleFilters} type='checkbox' name='filters' value='todos' checked={filters.todos}/></span>
               <span>API <input onChange={handleFilters} type='checkbox' name='filters' value='PokApi'checked={filters.PokApi}/></span>
               <span>Local <input onChange={handleFilters} type='checkbox' name='filters' value='PokLocales' checked={filters.PokLocales}/></span>
+              <span>A-Z <input onChange={handleFilters} type='checkbox' name='filters' value='AZ' checked={filters.AZ}/></span>
+              <span>Z-A <input onChange={handleFilters} type='checkbox' name='filters' value='ZA' checked={filters.ZA}/></span>
               <select  value={filters.TypePok} name='TypePok' onChange={handleFilters} id="selectType">
               <option  value='' >Tipos</option>
                 {types && types.map( (t,index) => (
