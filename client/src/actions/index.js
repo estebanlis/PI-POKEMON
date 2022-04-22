@@ -25,3 +25,21 @@ export const getTypes = () => dispatch => {
     .then(data => dispatch({type: 'GET_TYPES',payload: data}))
    
 };
+
+export const filter = (payload) =>{
+
+    
+    return{
+        type:'FILTER',
+        payload
+    }
+};
+
+export const pagePok = (payload) =>{
+
+    
+    return{
+        type:'PAGE_POK',
+        payload
+    }
+};
