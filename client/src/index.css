@@ -121,6 +121,9 @@ a{
   position: relative;
   margin: 10px auto;
 }
+.cardPok img:hover{
+  height: 95px;
+}
 
 .namePok{
   text-align: center;
@@ -174,4 +177,33 @@ a{
 .filters{
   display: flex;
   gap: 15px;
+}
+
+.cardPokDetail{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  
+  width: 300px;
+  padding: 20px 20px;
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15); 
+  border-radius: 10px;
+  background-color: #fff;
+  
+}
+
+.cardPokDetail img{
+  display: block;
+  height: 160px;
+  max-width: 150px;
+  position: relative;
+  margin: 10px auto;
+}
+
+.moreDate{
+  display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 10px auto;
+    text-align: center;
 }

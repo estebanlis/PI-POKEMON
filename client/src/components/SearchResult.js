@@ -20,9 +20,7 @@ export default function SearchResult() {
     <>
         <div className='homeContent'>
 
-       {/*  {load? <p>Cargando..</p> : pok && pok.map(p => (
-            <CardPokes key={p.id} id={p.id} name={p.name} image={p.image} types={p.type} />
-        ))} */}
+       
 
           {load? <p>Cargando..</p> : 
             <CardPokes key={pok.id} id={pok.id} name={pok.name} image={pok.image} types={pok.type} />

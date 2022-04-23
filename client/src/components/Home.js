@@ -1,6 +1,7 @@
 import {useEffect, useRef, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getPokemones, getTypes, filter,pagePok } from '../actions';
+import { Link } from 'react-router-dom';
+import { getPokemones, getTypes, filter,pagePok, setLoading } from '../actions';
 import CardPokes from './CardPokes';
 
 
@@ -11,6 +12,7 @@ export default function Home() {
     let pokes = useSelector(state => state.pokTemp);
     let load = useSelector(state => state.loading);
     let types = useSelector(state => state.typesPok);
+    let totalPage = useSelector(state => state.page);
 
     const [currentPage, setCurrentPage] = useState({
                                                     
@@ -26,15 +28,15 @@ export default function Home() {
                                             Todos: true,
                                             TypePok:'todos',
                                             orderAZ: false,
-                                            orderZA: false
+                                            orderZA: false,
+                                            orderUpAttack: false,
+                                            orderDownAttack: false
                                            });
     
     
     const offset = 12;
-    const totalPages = useRef(0);
-    if(pokes) totalPages.current = Math.ceil(pokes.length/offset);
-    console.log(totalPages.current);
- 
+    
+    
     let dispatch = useDispatch();
 
     useEffect(() => {
@@ -43,11 +45,12 @@ export default function Home() {
               dispatch(getPokemones());
             }
     },[dispatch]);
-
+    
     useEffect(() => {
       if(load ) return;
+
       
-      if(totalPages.current < 2) {
+      if(totalPage < 2) {
               setCurrentPage({
                 index: 0,
                 page : 0,
@@ -64,24 +67,20 @@ export default function Home() {
             btnPrev: true
             });
       }
-    },[filters,load]);
+    },[filters,load,totalPage]);
 
     useEffect(() => {
      dispatch(filter(filters));
-     
+    
      dispatch(pagePok({currentPage: currentPage.page, offset: offset}));
-      console.log('pase')
+      
 
     },[filters, currentPage]);
 
-      
-
-     
-
-
+    
     const nextPage = () => {
    
-       if(currentPage.index < totalPages.current - 2){
+       if(currentPage.index < totalPage -2){
                     setCurrentPage({...currentPage,
                                     btnPrev: false, 
                                     page : currentPage.page + offset,
@@ -124,6 +123,24 @@ export default function Home() {
         });
       }
 
+      if(event.target.value === 'orderUpAttack'){
+        setFilters( {  ...filters,
+                       orderUpAttack:event.target.checked, 
+                       orderZA: false,
+                       orderAZ: false, 
+                       
+         });
+        }
+
+      if(event.target.value === 'orderDownAttack'){
+          setFilters( {  ...filters,
+                         orderDownAttack:event.target.checked,
+                         orderZA: false,
+                         orderAZ: false,  
+                         
+           });  
+          }
+
       if(event.target.value === 'PokApi'){
          setFilters( {
                         TypePok:'todos',
@@ -165,7 +182,9 @@ export default function Home() {
          setFilters( {
             ...filters,
                         orderAZ : event.target.checked,
-                        orderZA: false
+                        orderZA: false,
+                        orderDownAttack: false,
+                        orderUpAttack: false
  
         });
       }
@@ -174,7 +193,9 @@ export default function Home() {
          setFilters( {
             ...filters,
                         orderZA : event.target.checked,
-                        orderAZ: false
+                        orderAZ: false,
+                        orderDownAttack: false,
+                        orderUpAttack: false
            });
       }
   
@@ -193,8 +214,10 @@ export default function Home() {
               <span>Todos <input onChange={handleFilters} type='radio' name='filters' value='Todos' defaultChecked={filters.Todos}/></span>
               <span>API <input onChange={handleFilters} type='radio' name='filters' value='PokApi'defaultChecked={filters.PokApi}/></span>
               <span>Local <input onChange={handleFilters} type='radio' name='filters' value='PokLocales' defaultChecked={filters.PokLocales}/></span>
-              <span>A-Z <input onChange={handleFilters} type='radio' name='filtersAZ' value='orderAZ' defaultChecked={filters.AZ}/></span>
-              <span>Z-A <input onChange={handleFilters} type='radio' name='filtersAZ' value='orderZA' defaultChecked={filters.ZA}/></span>
+              <span>A-Z <input onChange={handleFilters} type='radio' name='filtersAZAttack' value='orderAZ' defaultChecked={filters.AZ}/></span>
+              <span>Z-A <input onChange={handleFilters} type='radio' name='filtersAZAttack' value='orderZA' defaultChecked={filters.ZA}/></span>
+              <span>Attack ++ <input onChange={handleFilters} type='radio' name='filtersAZAttack' value='orderUpAttack' defaultChecked={filters.orderUpAttack}/></span>
+              <span>Attack -- <input onChange={handleFilters} type='radio' name='filtersAZAttack' value='orderDownAttack' defaultChecked={filters.orderDownAttack}/></span>
               <select  value={filters.TypePok} name='TypePok' onChange={handleFilters} id="selectType">
               <option  value='todos' >Tipos</option>
                 {types && types.map( (t,index) => (
@@ -213,7 +236,7 @@ export default function Home() {
       
 
         {load? <p>Cargando..</p> : pokes && pokes.length ? pokes.map(p => (
-            <CardPokes key={p.id} id={p.id} name={p.name} image={p.image} types={p.type} />
+            <Link to={`/pokemon/${p.id} `} onClick={()=>{dispatch(setLoading(true))}}> <CardPokes key={p.id} id={p.id} name={p.name} image={p.image} types={p.type} /></Link>
         )) : <p>Not found pokemon</p>}
     </div>
 

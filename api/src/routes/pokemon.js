@@ -93,6 +93,7 @@ router.get('/', async (req, res) => {
                                                         id: pok.data.id,
                                                         name: pok.data.name,
                                                         image: pok.data.sprites.other.dream_world.front_default,
+                                                        attack: pok.data.stats[1].base_stat,
                                                         type: pok.data.types.length > 0 ? pok.data.types.map( t => t.type.name) : []
                                                     }
                                             return obj;
@@ -120,7 +121,7 @@ router.get('/', async (req, res) => {
                 id: p.idB,
                 name: p.name,
                // hp: p.hp,
-               // attack: p.attack,
+                attack: p.attack,
                // defense: p.defense,
                // speed: p.speed,
                // height: p.height,

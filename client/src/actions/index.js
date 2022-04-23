@@ -26,6 +26,14 @@ export const getTypes = () => dispatch => {
    
 };
 
+export const getPokById = (value) => dispatch => {
+    return fetch(`http://localhost:3001/pokemon/${value}`)
+    .then(response => response.json())
+    .then(data => dispatch({type: 'GET_POK_BY_ID',payload: data}))
+   
+};
+
+
 export const filter = (payload) =>{
 
     

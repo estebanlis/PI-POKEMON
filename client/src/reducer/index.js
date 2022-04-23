@@ -4,7 +4,9 @@ const initialState = {
     loading : true,
     searchResult: [],
     typesPok:[],
-    pokTemp:[]
+    pokTemp:[],
+    page:1,
+    pokDetail:{}
 };
 
 const pokemones = (state = initialState, action) => {
@@ -24,6 +26,12 @@ const pokemones = (state = initialState, action) => {
                         loading: false,
                         searchResult: action.payload
                     };
+            case 'GET_POK_BY_ID':
+                        return {
+                            ...state,
+                            loading: false,
+                            pokDetail: action.payload
+                        };
 
             case 'GET_TYPES':
                     return {
@@ -34,6 +42,7 @@ const pokemones = (state = initialState, action) => {
                    
             case 'FILTER' :
                 let pokFilter = state.pokemones;
+                let numPages=1;
 
                 if(action.payload.PokApi){
                     pokFilter = state.pokemones.filter( p => typeof p.id !== 'string' );
@@ -50,6 +59,28 @@ const pokemones = (state = initialState, action) => {
                           
                     if(action.payload.orderZA){
                             pokFilter = pokFilter.reverse(SortArray);
+                          }
+                    if(action.payload.orderUpAttack){
+                            pokFilter = pokFilter.sort(function(a,b){
+                                if(a.attack > b.attack){
+                                    return -1;
+                                }
+                                if(b.attack > a.attack){
+                                    return 1;
+                                }
+                                return 0;
+                            })
+                          }
+                    if(action.payload.orderDownAttack){
+                            pokFilter = pokFilter.sort(function(a,b){
+                                if(a.attack > b.attack){
+                                    return 1;
+                                }
+                                if(b.attack > a.attack){
+                                    return -1;
+                                }
+                                return 0;
+                            })
                           }
                 } 
                 
@@ -69,6 +100,28 @@ const pokemones = (state = initialState, action) => {
                     if(action.payload.orderZA){
                             pokFilter = pokFilter.reverse(SortArray);
                           }
+                    if(action.payload.orderUpAttack){
+                            pokFilter = pokFilter.sort(function(a,b){
+                                if(a.attack > b.attack){
+                                    return -1;
+                                }
+                                if(b.attack > a.attack){
+                                    return 1;
+                                }
+                                return 0;
+                            })
+                          }
+                    if(action.payload.orderDownAttack){
+                            pokFilter = pokFilter.sort(function(a,b){
+                                if(a.attack > b.attack){
+                                    return 1;
+                                }
+                                if(b.attack > a.attack){
+                                    return -1;
+                                }
+                                return 0;
+                            })
+                          }
                 }
 
                 if(action.payload.Todos){
@@ -86,15 +139,38 @@ const pokemones = (state = initialState, action) => {
                     if(action.payload.orderZA){
                             pokFilter = pokFilter.reverse(SortArray);
                           }
+                          if(action.payload.orderUpAttack){
+                            pokFilter = pokFilter.sort(function(a,b){
+                                if(a.attack > b.attack){
+                                    return -1;
+                                }
+                                if(b.attack > a.attack){
+                                    return 1;
+                                }
+                                return 0;
+                            })
+                          }
+                    if(action.payload.orderDownAttack){
+                            pokFilter = pokFilter.sort(function(a,b){
+                                if(a.attack > b.attack){
+                                    return 1;
+                                }
+                                if(b.attack > a.attack){
+                                    return -1;
+                                }
+                                return 0;
+                            })
+                          }
                 } 
 
 
+                numPages = Math.ceil(pokFilter.length/12);
                
                 
                return{
                     ...state,
-                    pokTemp: pokFilter
-
+                    pokTemp: pokFilter,
+                    page: numPages
                 };
 
             case 'setLoading':
