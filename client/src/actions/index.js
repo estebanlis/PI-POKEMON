@@ -5,6 +5,19 @@ export const getPokemones = () => dispatch => {
    
 };
 
+export const newPokemon = (payload) => dispatch => {
+    console.log(payload);
+    return fetch('http://localhost:3001/pokemon/',{
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload)
+    })
+    .then(response => response.json())
+    .then(data => dispatch({type: 'CREATE_POKEMON',payload: data}))
+    .catch((error) => {console.log(error.message)})
+   
+};
+
 export const searchPok = (value) => dispatch => {
     return fetch(`http://localhost:3001/pokemon/?name=${value}`)
     .then(response => response.json())
@@ -16,6 +29,13 @@ export const setLoading = (payload) =>{
     return{
         type:'setLoading',
         payload
+    }
+};
+
+export const clearPokDetail = () =>{
+    return{
+        type:'CLEAR_POKDETAIL',
+        
     }
 };
 

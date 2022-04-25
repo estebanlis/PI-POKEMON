@@ -50,7 +50,7 @@ export default function Home() {
       if(load ) return;
 
       
-      if(totalPage < 2) {
+      if(totalPage <= 1) {
               setCurrentPage({
                 index: 0,
                 page : 0,
@@ -211,9 +211,14 @@ export default function Home() {
             <button onClick={nextPage} disabled ={currentPage.btnNext}>Siguiente</button> 
         </div>
         <div className='filters'>
+              <div className='fsource'>
               <span>Todos <input onChange={handleFilters} type='radio' name='filters' value='Todos' defaultChecked={filters.Todos}/></span>
               <span>API <input onChange={handleFilters} type='radio' name='filters' value='PokApi'defaultChecked={filters.PokApi}/></span>
               <span>Local <input onChange={handleFilters} type='radio' name='filters' value='PokLocales' defaultChecked={filters.PokLocales}/></span>
+
+              </div>
+
+              <div className='ffilters'>
               <span>A-Z <input onChange={handleFilters} type='radio' name='filtersAZAttack' value='orderAZ' defaultChecked={filters.AZ}/></span>
               <span>Z-A <input onChange={handleFilters} type='radio' name='filtersAZAttack' value='orderZA' defaultChecked={filters.ZA}/></span>
               <span>Attack ++ <input onChange={handleFilters} type='radio' name='filtersAZAttack' value='orderUpAttack' defaultChecked={filters.orderUpAttack}/></span>
@@ -223,9 +228,11 @@ export default function Home() {
                 {types && types.map( (t,index) => (
                   <option  key={index}  value={t.name}>{t.name}</option>
                 ))}
-                
-                
-              </select>
+              </select>        
+
+              </div>
+              
+              
 
         </div>
       
@@ -236,7 +243,7 @@ export default function Home() {
       
 
         {load? <p>Cargando..</p> : pokes && pokes.length ? pokes.map(p => (
-            <Link to={`/pokemon/${p.id} `} onClick={()=>{dispatch(setLoading(true))}}> <CardPokes key={p.id} id={p.id} name={p.name} image={p.image} types={p.type} /></Link>
+            <Link to={`/pokemon/${p.id} `} key={p.id} onClick={()=>{dispatch(setLoading(true))}}> <CardPokes  id={p.id} name={p.name} image={p.image} types={p.type} /></Link>
         )) : <p>Not found pokemon</p>}
     </div>
 

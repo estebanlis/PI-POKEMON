@@ -4,6 +4,7 @@ import Nav from './components/Nav';
 import Home from './components/Home';
 import SearchResult from './components/SearchResult';
 import PokeDetails from './components/PokeDetails';
+import NewPokemon from './components/NewPokemon';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path='home' element={<Home/>} />
         <Route path='search' element={<SearchResult/>} />
         <Route path='pokemon/:id' element={<PokeDetails/>} />
+        <Route path='NewPokemon' element={<NewPokemon/>} />
       </Route>
     </Routes>
     

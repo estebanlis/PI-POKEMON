@@ -19,6 +19,12 @@ const pokemones = (state = initialState, action) => {
                     pokemones: action.payload,
                     pokTemp: action.payload
                 };
+                
+            case 'CREATE_POKEMON':
+                    return {
+                        ...state
+                        
+                    };
 
             case 'SEARCH_POKEMON':
                     return {
@@ -178,7 +184,14 @@ const pokemones = (state = initialState, action) => {
                             ...state,
                             loading: action.payload,
                             
-                        };   
+                        };  
+            case 'CLEAR_POKDETAIL':
+                            return {
+                                ...state,
+                                pokDetail:{}
+                                
+                            };  
+                         
             case 'PAGE_POK':
                 let pokPage = state.pokTemp;
                 pokPage = pokPage.slice(action.payload.currentPage,action.payload.currentPage + action.payload.offset);

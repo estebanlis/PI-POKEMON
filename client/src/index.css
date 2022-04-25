@@ -13,6 +13,7 @@ body {
 
 a{
   text-decoration: none;
+  color: darkslategrey
 }
 
 .contenedor{
@@ -43,6 +44,7 @@ a{
   background-image: url("./assets/images/YcVQBDc\ \(1\).png") ;
   background-size: cover;
   background-position-y: bottom;
+  background-position-x: center;
   
 }
 .header .logo{
@@ -55,8 +57,13 @@ a{
 }
 
 .logo img {
-  -webkit-filter: drop-shadow(5px 5px 5px #222);
-  filter: drop-shadow(5px 5px 5px #222);
+  -webkit-filter: drop-shadow(0px 5px 5px #222);
+  filter: drop-shadow(0px 5px 5px #222);
+}
+.logo img:hover {
+  -webkit-filter: drop-shadow(0px 0px 1px #222);
+  filter: drop-shadow(0px 0px 1px #222);
+
 }
 
 .logo h1 {
@@ -78,14 +85,17 @@ a{
   margin-bottom: 0.93em;
 }
 .menu{
-  height: 30px;
+  height: 42px;
   grid-area: menu;
   border-top: 1px solid #000;
   border-bottom: 1px solid #000;
   display: flex;
   justify-content: center;
+  align-items: center;
   background-color: #fff;
   padding: 0 10px 0 10px;
+  -webkit-filter: drop-shadow(0px 2px 4px #7e771d);
+  filter: drop-shadow(0px 2px 4px #7e771d);
 }
 
 .menu a{
@@ -93,8 +103,7 @@ a{
   color: #000;
   display: block;
   text-decoration: none;
-  text-transform: uppercase;
-  font-weight: 400;
+ 
   text-align: center;
   transition: 0.2s ease all;
   font-size: 1em;
@@ -128,6 +137,7 @@ a{
 .namePok{
   text-align: center;
   font-weight: 600;
+  text-transform: capitalize;
 }
 
 .typesPok{
@@ -171,20 +181,21 @@ a{
 }
 
 .boxSearch{
-  margin: auto;
+  margin: 0px;
 }
 
 .filters{
   display: flex;
-  gap: 15px;
+  flex-direction: column;
+  gap: 0px;
 }
 
 .cardPokDetail{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-evenly;
   
-  width: 300px;
+  width: 500px;
   padding: 20px 20px;
   box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15); 
   border-radius: 10px;
@@ -194,8 +205,8 @@ a{
 
 .cardPokDetail img{
   display: block;
-  height: 160px;
-  max-width: 150px;
+  height: 220px;
+  
   position: relative;
   margin: 10px auto;
 }
@@ -205,5 +216,18 @@ a{
     flex-direction: column;
     gap: 10px;
     margin: 10px auto;
-    text-align: center;
+    text-align: left;
+    justify-content: center;
+}
+
+.formPok{
+  display: flex;
+  flex-direction: column;
+  grid-gap: 10px;
+  gap: 10px;
+  background-color: white;
+  padding: 34px;
+  width: 400px;
+  border-radius: 8px;
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15); 
 }

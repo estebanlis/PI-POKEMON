@@ -1,7 +1,9 @@
 
-import { useEffect } from 'react';
+
 import { useDispatch, useSelector} from 'react-redux';
 import { setLoading } from '../actions';
+import { Link } from 'react-router-dom';
+
 
 import CardPokes from './CardPokes';
 
@@ -23,7 +25,7 @@ export default function SearchResult() {
        
 
           {load? <p>Cargando..</p> : 
-            <CardPokes key={pok.id} id={pok.id} name={pok.name} image={pok.image} types={pok.type} />
+            <Link to={`/pokemon/${pok.id} `} onClick={()=>{dispatch(setLoading(true))}}><CardPokes key={pok.id} id={pok.id} name={pok.name} image={pok.image} types={pok.type} /></Link>
         } 
 
         </div>

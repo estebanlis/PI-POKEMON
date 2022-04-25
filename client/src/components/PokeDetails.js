@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom'
 import CardPokesDetails from './CadPokesDetails';
-import { getPokById } from '../actions';
+import { getPokById, clearPokDetail } from '../actions';
 
 export default function PokeDetails() {
     let {id} = useParams();
@@ -13,6 +13,7 @@ export default function PokeDetails() {
     useEffect ( () => {
 
         dispatch(getPokById(id));
+        return (() =>dispatch(clearPokDetail()));
 
     },[]);
   return (
