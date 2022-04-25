@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
-import { clearPokDetail } from '../actions';
+
 
 export default function CadPokesDetails(props) {
 
@@ -9,6 +9,12 @@ export default function CadPokesDetails(props) {
     useEffect (() =>{
         //return (() =>dispatch(clearPokDetail()));
     },[dispatch]);
+
+    let hpCss = (props.hp/255)*100;
+    console.log(hpCss.toString);
+    const myStyle = {
+      width :  `"${hpCss}%"`
+    };
   return (
     <>
     <div className='cardPokDetail'>
@@ -22,7 +28,16 @@ export default function CadPokesDetails(props) {
         </div>
 
       <div className='moreDate'>
-          <span>HP: {props.hp}</span>
+         {/*  <span>HP: {props.hp}</span> */}
+         <div className='statsBar'>
+          <p>HP</p>
+          <div className="container-features">
+                <div style={myStyle}>{props.hp}</div>
+          </div>
+
+         </div>
+         
+
           <span>Attack: {props.attack}</span>
           <span>Defense: {props.defense}</span>
           <span>Speed: {props.speed}</span>

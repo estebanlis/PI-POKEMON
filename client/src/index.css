@@ -17,9 +17,7 @@ a{
 }
 
 .contenedor{
-  /* width: 80%; */
-  /* max-width: 75em; */
-  /* margin: 1.25em auto; */
+  
   display: grid;
   grid-gap: 0;
   grid-template-columns: 1fr;
@@ -121,6 +119,8 @@ a{
   border-radius: 10px;
   background-color: #fff;
   height: 210px;
+  border-style: solid;
+  border-color: #2e2e2e;
 }
 
 .cardPok img{
@@ -154,6 +154,7 @@ a{
   gap: 20px;
   min-height: 641px;
   align-content: flex-start;
+  height: auto;
 
 }
 .footer{
@@ -200,6 +201,8 @@ a{
   box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15); 
   border-radius: 10px;
   background-color: #fff;
+  border-style: solid;
+  border-color: #2e2e2e;
   
 }
 
@@ -230,4 +233,42 @@ a{
   width: 400px;
   border-radius: 8px;
   box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15); 
+}
+
+.formPok input {
+  padding: 2px 8px;
+  background-color: white;
+  border-color: rgb(204,204,204);
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
+  cursor: default;
+  min-height: 38px;
+  box-sizing: border-box;
+  outline: 0px !important;
+}
+
+.formPok input:focus {
+  border-color: #2684FF;
+  box-shadow: 0 0 0 1px #2684FF ;
+}
+
+.container-features {
+  width: 100%; /* Full width */
+  background-color: #ddd; /* Grey background */
+}
+
+.skills {
+  text-align: right; /* Right-align text */
+  padding-top: 1px; /* Add top padding */
+  padding-bottom: 1px; /* Add bottom padding */
+  color: white; /* White text color */
+}
+
+.HP { background-color: #04AA6D;} /* Green */
+
+.statsBar {
+  display: flex;
+    gap: 10px;
+    align-items: center;
 }

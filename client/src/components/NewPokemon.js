@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { newPokemon } from '../actions';
+import Select from 'react-select'
 
 export default function NewPokemon() {
 
@@ -15,21 +16,29 @@ export default function NewPokemon() {
         defense:'',
         height:'',
         image:'',
-        types:''
+        types:[]
       }
-      const [input, setInput] = React.useState(  inputInicial);
+      const [input, setInput] = useState(  inputInicial);
+      
     
       const handleOnChange = (e) => {
-          if(e.target.name === 'types'){
-              setInput({
-                  ...input,
-                  types: Array.from(new Set([...input.types, e.target.value]))
-              })
-          }
+          
         setInput({
           ...input,
           [e.target.name]: e.target.value,
         });
+      };
+
+      const handleOnChangeTypes = (value) => {
+          
+       
+          console.log(value.map(p => p.value));   
+
+          setInput({
+            ...input,
+            types: value.map(p => p.value)
+          });
+
       };
     
       const handleOnSubmit = (e) => {
@@ -39,6 +48,12 @@ export default function NewPokemon() {
         
         setInput(inputInicial)
       }
+
+      const options = types && types.map( (p) => ({value:p.id, label:p.name}));
+
+      console.log(options);
+
+      
   return (
     <div className='homeContent'>
        
@@ -61,26 +76,34 @@ export default function NewPokemon() {
         <label>image</label>
         <input name="image" value={input.image} onChange={handleOnChange}></input>
         <label>types</label>
-       {/*  <input name="types" value={input.types} onChange={handleOnChange}></input> */}
-        <select  value={input.types} name='types' onChange={handleOnChange} id="selectType">
+      
+        {/* <select  multiple value={input.types} name='types' onChange={handleOnChange} id="selectType">
               <option  value='todos' >Tipos</option>
                 {types && types.map( (t,index) => (
                   <option  key={index}  value={t.id}>{t.name}</option>
                 ))}
-              </select>       
+              </select>      */}  
+         <div >
+          {types?.map((type) => {
+            return (
+              <div  key={type.id}>
+                <input
+                  
+                  type="checkbox"
+                  name="types"
+                 
+                  
+                />
+                <label>{type.name}</label>
+              </div>
+            );
+          })}
+        </div>
         <button type="submit">Add</button>
       </form>
-        
+
+
         
     </div>
   )
 }
-/* "name": "lucia",
-                "hp": 5,
-                "attack": 2,
-                "defense" : 66,
-                "speed": 80,
-                "height" : 52,
-                "weight": 30,
-                "image": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png",
-                "types": [5,6] */
