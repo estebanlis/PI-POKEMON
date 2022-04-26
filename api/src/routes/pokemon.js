@@ -61,7 +61,7 @@ router.get('/', async (req, res) => {
                             speed: pokemon.data.stats[5].base_stat,
                             height: pokemon.data.height,
                             weight: pokemon.data.weight,
-                            image: pokemon.data.sprites.other.dream_world.front_default,
+                            image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.data.id}.png `,
                             type: pokemon.data.types.length > 0 ? pokemon.data.types.map( t => t.type.name) : []
                         }
                 
@@ -92,7 +92,7 @@ router.get('/', async (req, res) => {
                                             obj = {
                                                         id: pok.data.id,
                                                         name: pok.data.name,
-                                                        image: pok.data.sprites.other.dream_world.front_default,
+                                                        image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pok.data.id}.png `,
                                                         attack: pok.data.stats[1].base_stat,
                                                         type: pok.data.types.length > 0 ? pok.data.types.map( t => t.type.name) : []
                                                     }
@@ -162,7 +162,8 @@ router.get('/:id', async (req, res) => {
                                         speed: pokemon.data.stats[5].base_stat,
                                         height: pokemon.data.height,
                                         weight: pokemon.data.weight,
-                                        image: pokemon.data.sprites.other.dream_world.front_default,
+                                       /*  image: pokemon.data.sprites.other.home.front_default, */
+                                       image :  `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png `,
                                         type: pokemon.data.types.length > 0 ? pokemon.data.types.map( t => t.type.name) : []
                                     }
                             

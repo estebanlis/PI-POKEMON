@@ -24,7 +24,7 @@ export default function SearchResult() {
 
        
 
-          {load? <p>Cargando..</p> : 
+          {load? <div class="pokemonLoader"></div> : 
             <Link to={`/pokemon/${pok.id} `} onClick={()=>{dispatch(setLoading(true))}}><CardPokes key={pok.id} id={pok.id} name={pok.name} image={pok.image} types={pok.type} /></Link>
         } 
 

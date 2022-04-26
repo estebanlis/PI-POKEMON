@@ -242,7 +242,7 @@ export default function Home() {
       <div className="homeContent">
       
 
-        {load? <p>Cargando..</p> : pokes && pokes.length ? pokes.map(p => (
+        {load? <div class="pokemonLoader"></div> : pokes && pokes.length ? pokes.map(p => (
             <Link to={`/pokemon/${p.id} `} key={p.id} onClick={()=>{dispatch(setLoading(true))}}> <CardPokes  id={p.id} name={p.name} image={p.image} types={p.type} /></Link>
         )) : <p>Not found pokemon</p>}
     </div>

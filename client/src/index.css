@@ -13,7 +13,7 @@ body {
 
 a{
   text-decoration: none;
-  color: darkslategrey
+  color: #3e3c3c
 }
 
 .contenedor{
@@ -85,8 +85,7 @@ a{
 .menu{
   height: 42px;
   grid-area: menu;
-  border-top: 1px solid #000;
-  border-bottom: 1px solid #000;
+ 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -115,12 +114,11 @@ a{
   
   width: 230px;
   padding: 20px 20px;
-  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15); 
+  box-shadow: 5px 5px 1px rgba(94, 89, 20, 0.5); 
   border-radius: 10px;
   background-color: #fff;
   height: 210px;
-  border-style: solid;
-  border-color: #2e2e2e;
+  
 }
 
 .cardPok img{
@@ -155,6 +153,7 @@ a{
   min-height: 641px;
   align-content: flex-start;
   height: auto;
+  color:#3e3c3c
 
 }
 .footer{
@@ -196,13 +195,12 @@ a{
   flex-direction: row;
   justify-content: space-evenly;
   
-  width: 500px;
+  width: 550px;
   padding: 20px 20px;
-  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15); 
+  box-shadow: 5px 5px 1px rgba(94, 89, 20, 0.5); 
   border-radius: 10px;
   background-color: #fff;
-  border-style: solid;
-  border-color: #2e2e2e;
+  
   
 }
 
@@ -218,9 +216,14 @@ a{
   display: flex;
     flex-direction: column;
     gap: 10px;
-    margin: 10px auto;
+    margin: 10px 10px;
     text-align: left;
     justify-content: center;
+    width: 215px;
+    font-weight: 600;
+    font-size: 15px;
+    border-left: 1px solid #faeb39;
+    padding-left: 15px;
 }
 
 .formPok{
@@ -268,7 +271,51 @@ a{
 .HP { background-color: #04AA6D;} /* Green */
 
 .statsBar {
-  display: flex;
-    gap: 10px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
     align-items: center;
+}
+
+.pokemonLoader {
+  position: relative;
+  height: 60px;
+  width: 60px;
+  background: linear-gradient(to bottom, rgb(254, 0, 1) 50%, white 50% );
+  border-radius: 50%;
+  border: 3px solid black;
+  animation: spin 1s linear infinite;
+}
+
+.pokemonLoader::before {
+  content: '';
+  position: absolute;
+  height: 4px;
+  width: 56px;
+  background: black;
+  top: 26px;
+  transform: translatey(-50%);
+}
+
+.pokemonLoader::after {
+  content: '';
+  position: absolute;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  background: white;
+  top: 27px;
+  left: 27px;
+  transform: translate(-50%, -50%);
+  box-shadow: inset 0 0 0 6px black, inset 0 0 0 8px white, inset 0 0 0 10px black;
+
+}
+
+/* Spin Animation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

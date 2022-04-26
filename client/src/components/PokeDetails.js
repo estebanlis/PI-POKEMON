@@ -25,7 +25,7 @@ export default function PokeDetails() {
 
      
 
-          {load? <p>Cargando..</p> : 
+          {load? <div class="pokemonLoader"></div> : 
             <CardPokesDetails key={pok.id} id={pok.id} name={pok.name} image={pok.image} types={pok.type}
             hp={pok.hp}  attack={pok.attack}  defense={pok.defense}  speed={pok.speed}  height={pok.height} weight={pok.weight}/>
         }   

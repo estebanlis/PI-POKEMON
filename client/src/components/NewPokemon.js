@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { newPokemon } from '../actions';
-import Select from 'react-select'
+
 
 export default function NewPokemon() {
 
