@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { newPokemon } from '../actions';
+import { newPokemon, getTypes } from '../actions';
 
 
 export default function NewPokemon() {
@@ -19,6 +19,26 @@ export default function NewPokemon() {
         types:[]
       }
       const [input, setInput] = useState(  inputInicial);
+
+      const [inputErr, setInputErr] = useState({
+        nameVoid:false,
+        nameNum:false,
+        hp:false,
+        attack: false,
+        speed: false,
+        defense:false,
+        height:false,
+        image:false,
+        types:false
+      } );
+
+
+      useEffect(() => {
+        if(!types.length){
+          dispatch(getTypes());
+          
+        }
+      },[dispatch]);
       
     
       const handleOnChange = (e) => {
@@ -29,15 +49,18 @@ export default function NewPokemon() {
         });
       };
 
-      const handleOnChangeTypes = (value) => {
+      const handleOnChangeTypes = (e) => {
           
        
-          console.log(value.map(p => p.value));   
-
-          setInput({
-            ...input,
-            types: value.map(p => p.value)
-          });
+         let target = e.target;
+        
+         console.log(target.selectedOptions)
+         let value = Array.from(target.selectedOptions, option => Number(option.value));
+        
+         setInput({
+           ...input,
+           types : value
+         })
 
       };
     
@@ -49,9 +72,45 @@ export default function NewPokemon() {
         setInput(inputInicial)
       }
 
-      const options = types && types.map( (p) => ({value:p.id, label:p.name}));
+      const controlInput = (e) => {
+        let target = e.target;
+        if(target.name === 'name'){
+            if(target.value === ''){
 
-      console.log(options);
+              setInputErr({
+                ...inputErr,
+                name: true
+              });
+              
+            }
+            if(!/^[a-zA-Z]*$/.test(target.value)){
+
+              setInputErr({
+                ...inputErr,
+                nameNum: true
+              });
+
+            }
+        }
+
+      }
+
+      const clearErr = (e) => {
+        let target = e.target;
+        if(target.name === 'name'){
+            
+
+              setInputErr({
+                ...inputErr,
+                name: false,
+                nameNum: false
+              });
+              
+            
+        }
+
+      }
+
 
       
   return (
@@ -60,46 +119,48 @@ export default function NewPokemon() {
 
         <form className='formPok' onSubmit={handleOnSubmit}>
         <label>Name</label>
-        <input name="name" value={input.name} onChange={handleOnChange}></input>
-        <label>hp</label>
-        <input name="hp" value={input.hp} onChange={handleOnChange}></input>
-        <label>attack</label>
-        <input name="attack" value={input.attack} onChange={handleOnChange}></input>
-        <label>speed</label>
-        <input name="speed" value={input.speed} onChange={handleOnChange}></input>
-        <label>defense</label>
-        <input name="defense" value={input.defense} onChange={handleOnChange}></input>
-        <label>height</label>
-        <input name="height" value={input.height} onChange={handleOnChange}></input>
-        <label>weight</label>
-        <input name="weight" value={input.weight} onChange={handleOnChange}></input>
-        <label>image</label>
+        <input className={inputErr.name || inputErr.nameNum ? 'inputErr': null} name="name" value={input.name} onChange={handleOnChange} onBlur={controlInput} onFocus={clearErr}></input>
+        {inputErr.name ? <p className='pmsgErr'>**El nombre es un campo requerido**</p> : null}
+        {inputErr.nameNum ? <p className='pmsgErr'>**El nombre no debe contener numeros o espacios**</p> : null}
+        <div className='featuresGrid'>
+              <div className='featuresFlex'>
+                  <label>Hp</label>
+                  <input name="hp" value={input.hp} onChange={handleOnChange} className='features'></input>
+                  
+              </div>
+              <div className='featuresFlex'>
+              <label>Attack</label>
+              <input name="attack" value={input.attack} onChange={handleOnChange} className='features'></input>
+              </div>
+              <div className='featuresFlex'>
+              <label>Speed</label>
+              <input name="speed" value={input.speed} onChange={handleOnChange} className='features'></input>
+              </div>
+              <div className='featuresFlex'> 
+              <label>Defense</label>
+              <input name="defense" value={input.defense} onChange={handleOnChange} className='features'></input>
+              </div>
+              <div className='featuresFlex'>
+              <label>Height</label>
+              <input name="height" value={input.height} onChange={handleOnChange} className='features'></input>
+              </div>
+              <div className='featuresFlex'>
+              <label>Weight</label>
+              <input name="weight" value={input.weight} onChange={handleOnChange} className='features'></input>
+              </div>
+        </div>
+        <label>Image</label>
         <input name="image" value={input.image} onChange={handleOnChange}></input>
-        <label>types</label>
+        <label>Types (only two)</label>
       
-        {/* <select  multiple value={input.types} name='types' onChange={handleOnChange} id="selectType">
-              <option  value='todos' >Tipos</option>
+         <select  multiple={true} value={input.types} name='types' onChange={handleOnChangeTypes} id="selectType">
+              
                 {types && types.map( (t,index) => (
                   <option  key={index}  value={t.id}>{t.name}</option>
                 ))}
-              </select>      */}  
-         <div >
-          {types?.map((type) => {
-            return (
-              <div  key={type.id}>
-                <input
-                  
-                  type="checkbox"
-                  name="types"
-                 
-                  
-                />
-                <label>{type.name}</label>
-              </div>
-            );
-          })}
-        </div>
-        <button type="submit">Add</button>
+              </select>      
+        
+        <button disabled={false}  type="submit">Add</button>
       </form>
 
 
