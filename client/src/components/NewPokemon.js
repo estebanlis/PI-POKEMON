@@ -63,6 +63,18 @@ export default function NewPokemon() {
            types : value
          })
 
+         if(value.length > 2){
+            setInputErr({
+                ...inputErr,
+                types:  <p className='pmsgErr'>*Maximo dos tipos.</p>
+              });
+         }else{
+            setInputErr({
+                ...inputErr,
+                types:  false
+              });
+         }
+
       };
     
       const handleOnSubmit = (e) => {
@@ -70,11 +82,13 @@ export default function NewPokemon() {
 
         for (const property in input) {
             
-            if(property !== 'image' || property !== 'types' ){
-                let g =  xtarget(property, input[property]);
-               
-                
-                         controlInput(g);
+            if(property !== 'image' && property !== 'types' ){
+                if(input[property] === ''){
+                    setInputErr({
+                        ...inputErr,
+                        [property]:  <p className='pmsgErr'>*Es un campo obligatorio.</p>
+                      });
+                }
 
             }
            
@@ -121,6 +135,8 @@ export default function NewPokemon() {
               } 
 
         }
+
+       
 
       }
 
@@ -202,12 +218,14 @@ export default function NewPokemon() {
         <input name="image" value={input.image} onChange={handleOnChange}></input>
         <label>Types (only two)</label>
       
-         <select  multiple={true} value={input.types} name='types' onChange={handleOnChangeTypes} id="selectType">
+         <select  multiple={true} value={input.types} name='types' onChange={handleOnChangeTypes} id="selectType" >
               
                 {types && types.map( (t,index) => (
                   <option  key={index}  value={t.id}>{t.name}</option>
                 ))}
-              </select>      
+              </select>   
+
+              {inputErr.types ? inputErr.types : null}           
         
         <button disabled={isInputValidate(inputErr)}  type="submit">Add</button>
       </form>
