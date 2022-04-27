@@ -5,6 +5,8 @@ import { newPokemon, getTypes } from '../actions';
 
 export default function NewPokemon() {
 
+    
+
     let types = useSelector(state => state.typesPok);
     let dispatch = useDispatch();
 
@@ -21,8 +23,7 @@ export default function NewPokemon() {
       const [input, setInput] = useState(  inputInicial);
 
       const [inputErr, setInputErr] = useState({
-        nameVoid:false,
-        nameNum:false,
+        name:false,
         hp:false,
         attack: false,
         speed: false,
@@ -54,7 +55,7 @@ export default function NewPokemon() {
        
          let target = e.target;
         
-         console.log(target.selectedOptions)
+        
          let value = Array.from(target.selectedOptions, option => Number(option.value));
         
          setInput({
@@ -66,6 +67,19 @@ export default function NewPokemon() {
     
       const handleOnSubmit = (e) => {
         e.preventDefault();
+
+        for (const property in input) {
+            
+            if(property !== 'image' || property !== 'types' ){
+                let g =  xtarget(property, input[property]);
+               
+                
+                         controlInput(g);
+
+            }
+           
+             }
+        if(isInputValidate(inputErr)) return;
         
         dispatch(newPokemon(input));
         
@@ -73,45 +87,73 @@ export default function NewPokemon() {
       }
 
       const controlInput = (e) => {
+        
         let target = e.target;
-        if(target.name === 'name'){
-            if(target.value === ''){
+        if(target.value === ''){
 
-              setInputErr({
-                ...inputErr,
-                name: true
-              });
-              
-            }
+           
+            setInputErr({
+              ...inputErr,
+              [target.name]:  <p className='pmsgErr'>*Es un campo obligatorio.</p>
+            });
+            
+          }
+        if(target.name === 'name'){
+          
             if(!/^[a-zA-Z]*$/.test(target.value)){
 
               setInputErr({
                 ...inputErr,
-                nameNum: true
+                name: <p className='pmsgErr'>*Solo caracteres.</p>
               });
 
             }
+        }
+        if(target.name === 'hp'){
+           
+               if(!/^[0-9\b]*$/.test(target.value)){
+  
+                setInputErr({
+                  ...inputErr,
+                  [target.name]: <p className='pmsgErr'>*Solo numeros enteros.</p>
+                });
+  
+              } 
+
         }
 
       }
 
       const clearErr = (e) => {
         let target = e.target;
-        if(target.name === 'name'){
-            
-
+       
+           
               setInputErr({
                 ...inputErr,
-                name: false,
-                nameNum: false
+                [target.name]: false,
+                
               });
-              
-            
-        }
+         
+        
+
 
       }
 
+      const isInputValidate = (obj) => {
+        for (const property in obj) {
+           if(obj[property]) return true
+          }
+      }
 
+      const xtarget = (property, value) => {
+        let f = {target:{
+        name : property,
+        value: value
+      }}
+       return f;
+  }
+
+     
       
   return (
     <div className='homeContent'>
@@ -119,34 +161,41 @@ export default function NewPokemon() {
 
         <form className='formPok' onSubmit={handleOnSubmit}>
         <label>Name</label>
-        <input className={inputErr.name || inputErr.nameNum ? 'inputErr': null} name="name" value={input.name} onChange={handleOnChange} onBlur={controlInput} onFocus={clearErr}></input>
-        {inputErr.name ? <p className='pmsgErr'>**El nombre es un campo requerido**</p> : null}
-        {inputErr.nameNum ? <p className='pmsgErr'>**El nombre no debe contener numeros o espacios**</p> : null}
+        <input className={inputErr.name ? 'inputErr': null} name="name" value={input.name} onChange={handleOnChange} onBlur={controlInput} onFocus={clearErr}></input>
+        {inputErr.name ? inputErr.name : null}
+        
         <div className='featuresGrid'>
               <div className='featuresFlex'>
                   <label>Hp</label>
-                  <input name="hp" value={input.hp} onChange={handleOnChange} className='features'></input>
+                  <input className={inputErr.hp ? 'inputErr features': 'features'} name="hp" value={input.hp} onChange={handleOnChange}  onBlur={controlInput} onFocus={clearErr}></input>
+                  {inputErr.hp ? inputErr.hp : null}
+                 
                   
               </div>
               <div className='featuresFlex'>
               <label>Attack</label>
-              <input name="attack" value={input.attack} onChange={handleOnChange} className='features'></input>
+              <input className={inputErr.attack ? 'inputErr features': 'features'} name="attack" value={input.attack} onChange={handleOnChange} onBlur={controlInput} onFocus={clearErr}></input>
+              {inputErr.attack ? inputErr.attack : null}
               </div>
               <div className='featuresFlex'>
               <label>Speed</label>
-              <input name="speed" value={input.speed} onChange={handleOnChange} className='features'></input>
+              <input className={inputErr.speed ? 'inputErr features': 'features'} name="speed" value={input.speed} onChange={handleOnChange} onBlur={controlInput} onFocus={clearErr}></input>
+              {inputErr.speed ? inputErr.speed : null}
               </div>
               <div className='featuresFlex'> 
               <label>Defense</label>
-              <input name="defense" value={input.defense} onChange={handleOnChange} className='features'></input>
+              <input className={inputErr.defense ? 'inputErr features': 'features'} name="defense" value={input.defense} onChange={handleOnChange} onBlur={controlInput} onFocus={clearErr}></input>
+              {inputErr.defense ? inputErr.defense : null}
               </div>
               <div className='featuresFlex'>
               <label>Height</label>
-              <input name="height" value={input.height} onChange={handleOnChange} className='features'></input>
+              <input className={inputErr.height ? 'inputErr features': 'features'} name="height" value={input.height} onChange={handleOnChange} onBlur={controlInput} onFocus={clearErr}></input>
+              {inputErr.height ? inputErr.height : null}
               </div>
               <div className='featuresFlex'>
               <label>Weight</label>
-              <input name="weight" value={input.weight} onChange={handleOnChange} className='features'></input>
+              <input className={inputErr.weight ? 'inputErr features': 'features'} name="weight" value={input.weight} onChange={handleOnChange} onBlur={controlInput} onFocus={clearErr}></input>
+              {inputErr.weight ? inputErr.weight : null}
               </div>
         </div>
         <label>Image</label>
@@ -160,7 +209,7 @@ export default function NewPokemon() {
                 ))}
               </select>      
         
-        <button disabled={false}  type="submit">Add</button>
+        <button disabled={isInputValidate(inputErr)}  type="submit">Add</button>
       </form>
 
 
