@@ -6,7 +6,9 @@ const initialState = {
     typesPok:[],
     pokTemp:[],
     page:1,
-    pokDetail:{}
+    pokDetail:{},
+    msgDbOK: false,
+    msgDbFail: false
 };
 
 const pokemones = (state = initialState, action) => {
@@ -21,8 +23,12 @@ const pokemones = (state = initialState, action) => {
                 };
                 
             case 'CREATE_POKEMON':
+
+                     console.log(action.payload)
                     return {
-                        ...state
+                        ...state,
+                        msgDbOK : action.payload.msg === 'ok' ? true : false,
+                        msgDbFail : action.payload.msgF === 'fail' ? true : false
                         
                     };
 
@@ -30,7 +36,8 @@ const pokemones = (state = initialState, action) => {
                     return {
                         ...state,
                         loading: false,
-                        searchResult: action.payload
+                        searchResult: action.payload,
+                        msgDbFail: action.payload.msg === 'fail' ? true : false
                     };
             case 'GET_POK_BY_ID':
                         return {
@@ -185,6 +192,19 @@ const pokemones = (state = initialState, action) => {
                             loading: action.payload,
                             
                         };  
+            case 'setMsgDb':
+                        return {
+                            ...state,
+                            msgDbOK: action.payload,
+                            
+                        };  
+            case 'setMsgDbFail':
+                            return {
+                                ...state,
+                                msgDbFail: action.payload,
+                                
+                            };
+                        
             case 'CLEAR_POKDETAIL':
                             return {
                                 ...state,

@@ -1,7 +1,6 @@
-
-
+import {useEffect} from 'react';
 import { useDispatch, useSelector} from 'react-redux';
-import { setLoading } from '../actions';
+import { setLoading,setMsgDbFail } from '../actions';
 import { Link } from 'react-router-dom';
 
 
@@ -11,7 +10,14 @@ export default function SearchResult() {
 
     let pok = useSelector(state => state.searchResult);
     let load = useSelector(state => state.loading);
+    let msgFromDb = useSelector(state => state.msgDbFail);
     let dispatch = useDispatch();
+
+    useEffect(() => {
+     
+
+      return () => dispatch(setMsgDbFail(false));
+    },[dispatch]);
 
     
     if(!load)console.log(pok);
@@ -24,9 +30,10 @@ export default function SearchResult() {
 
        
 
-          {load? <div class="pokemonLoader"></div> : 
-            <Link to={`/pokemon/${pok.id} `} onClick={()=>{dispatch(setLoading(true))}}><CardPokes key={pok.id} id={pok.id} name={pok.name} image={pok.image} types={pok.type} /></Link>
-        } 
+          {load? <div class="pokemonLoader"></div> : <Link to={`/pokemon/${pok.id} `} style={msgFromDb ?{pointerEvents: "none"} :null } onClick={()=>{dispatch(setLoading(true))}}><CardPokes key={pok.id} id={pok.id} name={pok.name} image={pok.image} types={pok.type} msg={msgFromDb} /></Link>
+        }
+
+        <Link to='/home'><span>Back</span></Link>  
 
         </div>
     </>

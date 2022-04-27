@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { newPokemon, getTypes } from '../actions';
+import { newPokemon, getTypes,setMsgDb, getPokemones} from '../actions';
 
 
 export default function NewPokemon() {
@@ -8,8 +8,15 @@ export default function NewPokemon() {
     
 
     let types = useSelector(state => state.typesPok);
+    let msgFromDb = useSelector(state => state.msgDbOK);
+    let msgFromDbF = useSelector(state => state.msgDbFail);
     let dispatch = useDispatch();
 
+    
+
+    
+
+   
     const inputInicial = {
         name:'',
         hp:'',
@@ -17,10 +24,12 @@ export default function NewPokemon() {
         speed: '',
         defense:'',
         height:'',
+        weight:'',
         image:'',
-        types:[]
+        types:''
       }
-      const [input, setInput] = useState(  inputInicial);
+      
+      const [input, setInput] = useState(inputInicial);
 
       const [inputErr, setInputErr] = useState({
         name:false,
@@ -29,6 +38,7 @@ export default function NewPokemon() {
         speed: false,
         defense:false,
         height:false,
+        weight:false,
         image:false,
         types:false
       } );
@@ -39,8 +49,17 @@ export default function NewPokemon() {
           dispatch(getTypes());
           
         }
+
+        return () => {dispatch(getPokemones()); dispatch(setMsgDb(false));}
       },[dispatch]);
+
+      useEffect(() => {
+
+        if(msgFromDb){setInput(inputInicial)}
+        
+      },[msgFromDb]);
       
+    
     
       const handleOnChange = (e) => {
           
@@ -80,24 +99,17 @@ export default function NewPokemon() {
       const handleOnSubmit = (e) => {
         e.preventDefault();
 
-        for (const property in input) {
-            
-            if(property !== 'image' && property !== 'types' ){
-                if(input[property] === ''){
-                    setInputErr({
-                        ...inputErr,
-                        [property]:  <p className='pmsgErr'>*Es un campo obligatorio.</p>
-                      });
-                }
+       
+        if(!isInputValidate(inputErr)){
 
-            }
-           
-             }
-        if(isInputValidate(inputErr)) return;
+          dispatch(newPokemon(input));
         
-        dispatch(newPokemon(input));
         
-        setInput(inputInicial)
+        } 
+
+        
+        
+        
       }
 
       const controlInput = (e) => {
@@ -142,8 +154,7 @@ export default function NewPokemon() {
 
       const clearErr = (e) => {
         let target = e.target;
-       
-           
+        if(msgFromDb) {dispatch(setMsgDb(false))}     
               setInputErr({
                 ...inputErr,
                 [target.name]: false,
@@ -156,29 +167,40 @@ export default function NewPokemon() {
       }
 
       const isInputValidate = (obj) => {
+        let b = false;
+        
         for (const property in obj) {
-           if(obj[property]) return true
+           if(obj[property]){ b= true}
           }
+        for (const property in input) {
+            if(property !== 'image' && property !== 'types' ) {
+              console.log(property);
+              if(input[property] === '') {b= true}
+           }else{
+             if(property === 'types'){
+                if(input[property].length < 1) {b= true}
+             }
+           }  
+         
       }
+      return b ;
+    }
 
-      const xtarget = (property, value) => {
-        let f = {target:{
-        name : property,
-        value: value
-      }}
-       return f;
-  }
-
+     
      
       
   return (
     <div className='homeContent'>
        
-
+       
         <form className='formPok' onSubmit={handleOnSubmit}>
+        {msgFromDb ? <div className='smsgExito'><span>Pokemon creado exitosamente.</span></div> : null}
+        
+        {msgFromDbF ? <div className='smsgError'><span>No se pudo crear el Pokemon.</span></div> : null}
+        
         <label>Name</label>
-        <input className={inputErr.name ? 'inputErr': null} name="name" value={input.name} onChange={handleOnChange} onBlur={controlInput} onFocus={clearErr}></input>
-        {inputErr.name ? inputErr.name : null}
+        <input autoFocus className={inputErr.name ? 'inputErr': null}  name="name" value={input.name} onChange={handleOnChange} onBlur={controlInput} onFocus={clearErr}></input>
+         {inputErr.name ? inputErr.name : null} 
         
         <div className='featuresGrid'>
               <div className='featuresFlex'>

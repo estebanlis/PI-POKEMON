@@ -239,7 +239,7 @@ export default function Home() {
       
       </div>
       
-      <div className="homeContent">
+      <div className="homeContent list">
       
 
         {load? <div class="pokemonLoader"></div> : pokes && pokes.length ? pokes.map(p => (

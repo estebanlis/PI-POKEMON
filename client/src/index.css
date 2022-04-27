@@ -148,13 +148,18 @@ a{
   max-width: 75em; 
   margin: 1.25em auto;
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto;
   gap: 20px;
   min-height: 641px;
   align-content: flex-start;
   height: auto;
-  color:#3e3c3c
+  color:#3e3c3c;
+  justify-items: center;
 
+}
+
+.list{
+  grid-template-columns: auto auto auto;
 }
 .footer{
   display: flex;
@@ -263,6 +268,22 @@ a{
   font-weight: 600;
   color: red;
   text-align: center;
+}
+
+.smsgExito {
+  border: solid 1px #31a30a;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #d5ebcd;
+    text-align: center;
+}
+.smsgError {
+  border: solid 1px red;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #e47272;
+    text-align: center;
+    color: white;
 }
 
 .features {

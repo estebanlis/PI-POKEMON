@@ -6,7 +6,7 @@ const router = Router();
 
 const urlApi = 'https://pokeapi.co/api/v2/pokemon';
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
 
     let  {name} = req.query;
 
@@ -45,6 +45,8 @@ router.get('/', async (req, res) => {
             
                     } catch (error) {
                         //res.status(404).json(error.message);  
+                       
+                        
                         
                     }
 
@@ -68,7 +70,11 @@ router.get('/', async (req, res) => {
                         return res.json(obj);
 
                     } catch (error) {
-                        res.status(404).json(error.message);
+                      
+                       
+
+                        //res.status(400).json({ message: 'fail', status: 400 });
+                        return res.status(404).json({msg: 'fail'});
                     }
     }
    
@@ -272,10 +278,12 @@ router.post('/', async (req, res) => {
         //console.log(pok.toJSON());
       //let i = await pok.getTypes();
 
-        res.json(obj);
+        res.json({msg : 'ok'});
 
     } catch (error) {
-        res.status(404).json(error.message); 
+        console.log(error.message);
+        return res.status(404).json({msgF: 'fail'}); 
+        //return res.status(404).json(error.message); 
     }
 
 });

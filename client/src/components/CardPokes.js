@@ -1,5 +1,6 @@
 import React from 'react';
 import '../index.css';
+import imagNotFound from '../assets/images/pok-search-not-found.jpg';
 
 export default function CardPokes(props) {
     const typeColor = {
@@ -22,16 +23,27 @@ export default function CardPokes(props) {
       };
   return (
       <>
+      {props.msg ?
       <div className='cardPok'>
-        <img src={props.image} alt='imagePoke'/>
-        <h2 className='namePok'><p>{props.name}</p></h2>
-        <div className='typesPok'>
-           {props.types && props.types.map((typ,index) =>(
-               <span key={index}>{typ}</span>
-           )) } 
-        </div>
+      <img src={imagNotFound} alt='imagePoke'/>
+      <h2 className='namePok'><p>Not Found</p></h2>
+      
+
+    </div> :
+
+      <div className='cardPok'>
+      <img src={props.image} alt='imagePoke'/>
+      <h2 className='namePok'><p>{props.name}</p></h2>
+      <div className='typesPok'>
+        {props.types && props.types.map((typ,index) =>(
+            <span key={index}>{typ}</span>
+        )) } 
+      </div>
 
       </div>
+    
+    }
+      
       
       
       

@@ -22,12 +22,27 @@ export const searchPok = (value) => dispatch => {
     return fetch(`http://localhost:3001/pokemon/?name=${value}`)
     .then(response => response.json())
     .then(data => dispatch({type: 'SEARCH_POKEMON',payload: data}))
+    .catch((error) => {console.log(error.message)})
    
 };
 
 export const setLoading = (payload) =>{
     return{
         type:'setLoading',
+        payload
+    }
+};
+
+export const setMsgDb = (payload) =>{
+    return{
+        type:'setMsgDb',
+        payload
+    }
+};
+
+export const setMsgDbFail = (payload) =>{
+    return{
+        type:'setMsgDbFail',
         payload
     }
 };
