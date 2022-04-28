@@ -18,7 +18,7 @@ export default function Nav() {
         <nav className='menu'>
 
            <SearchBox/>
-           <Link to='NewPokemon'><span className='button_newPok'>Crear Pokemon</span></Link>
+           <Link to='NewPokemon'><span className='button_newPok'>Create Pokemon</span></Link>
      
         </nav>
          

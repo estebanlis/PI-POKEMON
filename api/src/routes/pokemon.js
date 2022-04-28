@@ -12,6 +12,7 @@ router.get('/', async (req, res, next) => {
 
     if(name){
 
+        console.log('name: ',name);
                 name = name.toLowerCase();
 
                 try {
@@ -81,7 +82,7 @@ router.get('/', async (req, res, next) => {
     let pokemons = [];
     try {
 
-            let api_1 = await axios.get(urlApi + '?limit=40&offset=0'); 
+            let api_1 = await axios.get(urlApi + '?limit=100&offset=0'); 
 
             // data.results -->       {
             //                          "name": "bulbasaur",

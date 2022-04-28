@@ -4,6 +4,25 @@ import { useDispatch } from 'react-redux';
 
 export default function CadPokesDetails(props) {
 
+  const typeColor = {
+    bug: "#26de81",
+    dragon: "#ffeaa7",
+    electric: "#fed330",
+    fairy: "#FF0069",
+    fighting: "#30336b",
+    fire: "#f0932b",
+    flying: "#81ecec",
+    grass: "#00b894",
+    ground: "#EFB549",
+    ghost: "#a55eea",
+    ice: "#74b9ff",
+    normal: "#95afc0",
+    poison: "#6c5ce7",
+    psychic: "#a29bfe",
+    rock: "#2d3436",
+    water: "#0190FF",
+  };
+
     let dispatch = useDispatch();
 
     useEffect (() =>{
@@ -28,10 +47,13 @@ export default function CadPokesDetails(props) {
         </div>
 
       <div className='moreDate'>
-
+      <div className='heightWeightPok'>
       <span>Height: {props.height}</span>
-          <span>Weight: {props.weight}</span>
-         {/*  <span>HP: {props.hp}</span> */}
+      <span>Weight: {props.weight}</span>
+
+      </div>
+      
+        
          <div className='statsBar'>
           <p>HP</p>
           <div className="container-features">
@@ -66,11 +88,17 @@ export default function CadPokesDetails(props) {
           
           
          
-          <span>
-           Type: {props.types && props.types.map((typ,index) =>(
-            <span key={index}>{typ} </span>
+          <div className='typesPok'>
+           {props.types && props.types.map((typ,index) =>(
+            <span key={index}
+            style={{border: "solid 1px",
+              borderColor: typeColor[typ],
+              padding: "2px 5px",
+              borderRadius: "8px",
+              background: typeColor[typ],
+              color: "white",}}>{typ} </span>
             )) } 
-          </span>
+          </div>
 
       </div>
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { newPokemon, getTypes,setMsgDb, getPokemones} from '../actions';
 
@@ -249,7 +249,7 @@ export default function NewPokemon() {
 
               {inputErr.types ? inputErr.types : null}           
         
-        <button disabled={isInputValidate(inputErr)}  type="submit">Add</button>
+        <button disabled={isInputValidate(inputErr)}  type="submit">Create</button>
       </form>
 
 

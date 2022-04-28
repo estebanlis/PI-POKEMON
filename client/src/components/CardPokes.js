@@ -36,7 +36,12 @@ export default function CardPokes(props) {
       <h2 className='namePok'><p>{props.name}</p></h2>
       <div className='typesPok'>
         {props.types && props.types.map((typ,index) =>(
-            <span key={index}>{typ}</span>
+            <span style={{border: "solid 1px",
+              borderColor: typeColor[typ],
+              padding: "2px 5px",
+              borderRadius: "8px",
+              background: typeColor[typ],
+              color: "white",}} key={index}>{typ}</span>
         )) } 
       </div>
 
