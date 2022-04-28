@@ -33,10 +33,10 @@ export default function SearchBox() {
              name='searchValue'
              value={input.name}
              onChange={(e) => handleChange(e)} 
-             placeholder='ID / Nombre'>
+             placeholder='Name'>
 
           </input>
-          <button type='submit'>Buscar</button>
+          <button style={{margin:"0px 5px"}}type='submit'>Buscar</button>
       </form>
             
         </div>

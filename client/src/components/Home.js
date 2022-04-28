@@ -205,41 +205,48 @@ export default function Home() {
    
   return (
       <>
-      <div className='paginado'>
-        <div>
-            <button onClick={prevPage} disabled ={currentPage.btnPrev}>Anterior</button>
-            <button onClick={nextPage} disabled ={currentPage.btnNext}>Siguiente</button> 
-        </div>
-        <div className='filters'>
-              <div className='fsource'>
-              <span>Todos <input onChange={handleFilters} type='radio' name='filters' value='Todos' defaultChecked={filters.Todos}/></span>
-              <span>API <input onChange={handleFilters} type='radio' name='filters' value='PokApi'defaultChecked={filters.PokApi}/></span>
-              <span>Local <input onChange={handleFilters} type='radio' name='filters' value='PokLocales' defaultChecked={filters.PokLocales}/></span>
+      {load ? null :
 
-              </div>
+<div className='paginado'>
+<div>
+    <button onClick={prevPage} disabled ={currentPage.btnPrev}>Anterior</button>
+    <button onClick={nextPage} disabled ={currentPage.btnNext}>Siguiente</button> 
+</div>
+<div className='filters'>
+      <div className='fsource'>
+      <span>Todos <input onChange={handleFilters} type='radio' name='filters' value='Todos' defaultChecked={filters.Todos}/></span>
+      <span>API <input onChange={handleFilters} type='radio' name='filters' value='PokApi'defaultChecked={filters.PokApi}/></span>
+      <span>Local <input onChange={handleFilters} type='radio' name='filters' value='PokLocales' defaultChecked={filters.PokLocales}/></span>
 
-              <div className='ffilters'>
-              <span>A-Z <input onChange={handleFilters} type='radio' name='filtersAZAttack' value='orderAZ' defaultChecked={filters.AZ}/></span>
-              <span>Z-A <input onChange={handleFilters} type='radio' name='filtersAZAttack' value='orderZA' defaultChecked={filters.ZA}/></span>
-              <span>Attack ++ <input onChange={handleFilters} type='radio' name='filtersAZAttack' value='orderUpAttack' defaultChecked={filters.orderUpAttack}/></span>
-              <span>Attack -- <input onChange={handleFilters} type='radio' name='filtersAZAttack' value='orderDownAttack' defaultChecked={filters.orderDownAttack}/></span>
-              <select  value={filters.TypePok} name='TypePok' onChange={handleFilters} id="selectType">
-              <option  value='todos' >Tipos</option>
-                {types && types.map( (t,index) => (
-                  <option  key={index}  value={t.name}>{t.name}</option>
-                ))}
-              </select>        
+      </div>
 
-              </div>
-              
-              
+      <div className='fsource'>
+      <span>A-Z <input onChange={handleFilters} type='radio' name='filtersAZAttack' value='orderAZ' defaultChecked={filters.AZ}/></span>
+      <span>Z-A <input onChange={handleFilters} type='radio' name='filtersAZAttack' value='orderZA' defaultChecked={filters.ZA}/></span>
+      <span>Attack ++ <input onChange={handleFilters} type='radio' name='filtersAZAttack' value='orderUpAttack' defaultChecked={filters.orderUpAttack}/></span>
+      <span>Attack -- <input onChange={handleFilters} type='radio' name='filtersAZAttack' value='orderDownAttack' defaultChecked={filters.orderDownAttack}/></span>
+      <select style={{borderRadius: "5px"}} value={filters.TypePok} name='TypePok' onChange={handleFilters} id="selectType">
+      <option  value='todos' >Tipos</option>
+        {types && types.map( (t,index) => (
+          <option  key={index}  value={t.name}>{t.name}</option>
+        ))}
+      </select>        
 
-        </div>
-      
-      
       </div>
       
-      <div className="homeContent list">
+      
+
+</div>
+
+
+</div>
+
+
+
+      }
+      
+      
+      <div className={load ? "homeContent": "homeContent list"}>
       
 
         {load? <div class="pokemonLoader"></div> : pokes && pokes.length ? pokes.map(p => (
