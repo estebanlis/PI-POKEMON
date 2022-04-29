@@ -120,7 +120,7 @@ export default function NewPokemon() {
            
             setInputErr({
               ...inputErr,
-              [target.name]:  <p className='pmsgErr'>*Es un campo obligatorio.</p>
+              [target.name]:  <p className='pmsgErr'>*Is required.</p>
             });
             
           }
@@ -135,13 +135,13 @@ export default function NewPokemon() {
 
             }
         }
-        if(target.name === 'hp'){
+        if(target.name !== 'name'){
            
                if(!/^[0-9\b]*$/.test(target.value)){
   
                 setInputErr({
                   ...inputErr,
-                  [target.name]: <p className='pmsgErr'>*Solo numeros enteros.</p>
+                  [target.name]: <p className='pmsgErr'>*Numbers only.</p>
                 });
   
               } 
@@ -238,7 +238,7 @@ export default function NewPokemon() {
         </div>
         <label>Image</label>
         <input name="image" value={input.image} onChange={handleOnChange}></input>
-        <label>Types (only two)</label>
+        <label>Types</label>
       
          <select  multiple={true} value={input.types} name='types' onChange={handleOnChangeTypes} id="selectType" >
               

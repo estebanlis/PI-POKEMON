@@ -21,8 +21,7 @@ export default function SearchResult() {
 
     
     if(!load)console.log(pok);
-    console.log('Search Result load: ',load);
-
+    
     
   return (
     <>
@@ -33,7 +32,7 @@ export default function SearchResult() {
           {load? <div class="pokemonLoader"></div> : <Link to={`/pokemon/${pok.id} `} style={msgFromDb ?{pointerEvents: "none"} :null } onClick={()=>{dispatch(setLoading(true))}}><CardPokes key={pok.id} id={pok.id} name={pok.name} image={pok.image} types={pok.type} msg={msgFromDb} /></Link>
         }
 
-        <Link to='/home'><span>Back</span></Link>  
+        <Link to='/home'><span style={{fontWeight: "600"}}>Back</span></Link>  
 
         </div>
     </>

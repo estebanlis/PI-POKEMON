@@ -30,7 +30,7 @@ export default function PokeDetails() {
             hp={pok.hp}  attack={pok.attack}  defense={pok.defense}  speed={pok.speed}  height={pok.height} weight={pok.weight}/>
         }   
 
-       <Link to='/home'><span>Back</span></Link> 
+       <Link to='/home'><span style={{fontWeight: "600"}}>Back</span></Link> 
 
         </div>
     </>

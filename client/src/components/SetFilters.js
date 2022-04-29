@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react'
 import { useDispatch } from 'react-redux';
 import { filter} from '../actions';
 
-export default function Filters({types,filters,setFilters}) {
+export default function Filters({types,filters,setFilters, fsource, setFsource}) {
 
 
     const handleFilters = event => {
@@ -10,13 +10,16 @@ export default function Filters({types,filters,setFilters}) {
         if (event.target.value === 'PokApi') {
             setFilters({
                 TypePok: 'todos',
-                PokApi: event.target.checked,
-                Todos: false,
-                PokLocales: false,
                 orderZA: false,
                 orderAZ: false,
                 orderDownAttack: false,
                 orderUpAttack: false
+            });
+            setFsource({
+                PokApi: event.target.checked,
+                Todos: false,
+                PokLocales: false
+
             });
 
 
@@ -26,13 +29,16 @@ export default function Filters({types,filters,setFilters}) {
 
             setFilters({
                 TypePok: 'todos',
-                PokLocales: event.target.checked,
-                Todos: false,
-                PokApi: false,
                 orderZA: false,
                 orderAZ: false,
                 orderDownAttack: false,
                 orderUpAttack: false
+            });
+            setFsource({
+                PokLocales: event.target.checked,
+                Todos: false,
+                PokApi: false
+
             });
         }
 
@@ -40,14 +46,17 @@ export default function Filters({types,filters,setFilters}) {
 
             setFilters({
                 TypePok: 'todos',
-                Todos: event.target.checked,
-                PokLocales: false,
-                PokApi: false,
                 orderZA: false,
                 orderAZ: false,
                 orderDownAttack: false,
                 orderUpAttack: false
-            })
+            });
+            setFsource({
+                Todos: event.target.checked,
+                PokLocales: false,
+                PokApi: false
+
+            });
         }
 
         if (event.target.value === 'orderUpAttack') {
@@ -108,19 +117,21 @@ export default function Filters({types,filters,setFilters}) {
     
   return (
       <div className='filters'>
-          <div className='fsource'>
-              <span>All <input onChange={handleFilters} type='radio' name='filters' value='Todos' defaultChecked={filters.Todos} /></span>
-              <span>API <input onChange={handleFilters} type='radio' name='filters' value='PokApi' defaultChecked={filters.PokApi} /></span>
-              <span>Local <input onChange={handleFilters} type='radio' name='filters' value='PokLocales' defaultChecked={filters.PokLocales} /></span>
+          <div className='fsource' style={{borderRight: "solid 1px #eee"}}>
+              <span>All <input onChange={handleFilters} type='radio' name='filters' value='Todos' defaultChecked={fsource.Todos} /></span>
+              <span>API <input onChange={handleFilters} type='radio' name='filters' value='PokApi' defaultChecked={fsource.PokApi} /></span>
+              <span>Local <input onChange={handleFilters} type='radio' name='filters' value='PokLocales' defaultChecked={fsource.PokLocales} /></span>
 
           </div>
 
           <div className='fsource'>
-              <span>A-Z <input onChange={handleFilters} type='radio' name='filtersAZAttack' value='orderAZ' defaultChecked={filters.AZ} /></span>
-              <span>Z-A <input onChange={handleFilters} type='radio' name='filtersAZAttack' value='orderZA' defaultChecked={filters.ZA} /></span>
+              <span>aZ <input onChange={handleFilters} type='radio' name='filtersAZAttack' value='orderAZ' defaultChecked={filters.AZ} /></span>
+              <span>zA <input onChange={handleFilters} type='radio' name='filtersAZAttack' value='orderZA' defaultChecked={filters.ZA} /></span>
               <span>Attack ++ <input onChange={handleFilters} type='radio' name='filtersAZAttack' value='orderUpAttack' defaultChecked={filters.orderUpAttack} /></span>
               <span>Attack -- <input onChange={handleFilters} type='radio' name='filtersAZAttack' value='orderDownAttack' defaultChecked={filters.orderDownAttack} /></span>
-              <select style={{ borderRadius: "5px" }} value={filters.TypePok} name='TypePok' onChange={handleFilters} id="selectType">
+              <select style={{ borderRadius: "5px",borderRadius: "5px",fontFamily: "sans-serif",fontSize: "12px",
+              fontWeight: "600",padding: "3px 7px", }} 
+              value={filters.TypePok} name='TypePok' onChange={handleFilters} id="selectType">
                   <option value='todos' >Tipos</option>
                   {types && types.map((t, index) => (
                       <option key={index} value={t.name}>{t.name}</option>

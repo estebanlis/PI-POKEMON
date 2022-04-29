@@ -124,11 +124,11 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
 
 .button_find{
   padding: 2px 8px;
-  margin: 0px 12px;
+  margin: 0px 4px;
   height: 27px;
   border-radius: 0.5em;
   border: solid 2px #1C4CBD;
-  box-shadow: 3px 3px 1px #1c4cbd;
+  box-shadow: 2px 2px 1px #1c4cbd;
   background: white;
   font-size: 12px;
   font-weight: bold;
@@ -155,7 +155,7 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
     background: #ffffff;
     color: #525050;
     
-    box-shadow: 3px 3px 1px #CE2211;
+    box-shadow: 2px 2px 1px #CE2211;
 }
 
 .button_newPok:active{
@@ -165,12 +165,16 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
 }
 .fsource{
   display: flex;
-    gap: 60px;
+    gap: 11px;
 }
 .fsource span{
   border: solid 1px rgb(139, 138, 138);
   border-radius: 5px;
   padding: 3px 7px;
+  display: flex;
+    
+    align-items: center;
+    gap: 5px;
 }
 .cardPok{
   display: flex;
@@ -216,6 +220,7 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
   letter-spacing: 1px;
   text-shadow: 1px 1px 2px black;
   background: #eee;
+  border-radius: 7px;
 }
 
 .paginations{
@@ -305,7 +310,9 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
 
 .paginado div {
   margin: auto;
-  padding: 10px;
+  
+  padding: 3px 10px;
+    
   
 }
 
@@ -315,14 +322,14 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
 
 .filters{
   display: flex;
-    flex-direction: column;
+    flex-direction: row;
     grid-gap: 0px;
     gap: 0px;
     
     background: #fff;
     border-radius: 9px;
     width: 730px;
-    box-shadow: 5px 5px 1px rgba(94, 89, 20, 0.5);
+    box-shadow: 4px 4px 1px rgba(94, 89, 20, 0.5);
 }
 
 .cardPokDetail{

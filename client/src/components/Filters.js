@@ -1,10 +1,10 @@
 
 
-export const Filters =(pokes,filters) => {
+export  const Filters =(pokes,filters,fsource) => {
 
     let pokFilter = pokes;
 
-    if (filters.PokApi) {
+    if (fsource.PokApi) {
         pokFilter = pokFilter.filter(p => typeof p.id !== 'string');
 
         if (filters.TypePok !== 'todos') {
@@ -44,7 +44,7 @@ export const Filters =(pokes,filters) => {
         }
     }
 
-    if (filters.PokLocales) {
+    if (fsource.PokLocales) {
         pokFilter = pokFilter.filter(p => typeof p.id === 'string');
 
         if (filters.TypePok !== 'todos') {
@@ -84,7 +84,9 @@ export const Filters =(pokes,filters) => {
         }
     }
 
-    if (filters.Todos) {
+    if (fsource.Todos) {
+
+        
 
         if (filters.TypePok !== 'todos') {
             pokFilter = pokFilter.filter(p => {
@@ -97,6 +99,8 @@ export const Filters =(pokes,filters) => {
         }
 
         if (filters.orderZA) {
+
+            pokFilter = pokFilter.sort(SortArray);
             pokFilter = pokFilter.reverse(SortArray);
         }
         if (filters.orderUpAttack) {
@@ -123,12 +127,14 @@ export const Filters =(pokes,filters) => {
         }
     }
 
-  return {pokFilter}
+  return pokFilter;
     
   
 }
 
 const  SortArray = (x, y) => {
+
+    console.log('pase');
        
     return x.name.localeCompare(y.name);
   }

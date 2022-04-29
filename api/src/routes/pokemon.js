@@ -28,7 +28,7 @@ router.get('/', async (req, res, next) => {
                                         });
             
                         let obj = {
-                            idB: pok.idB,
+                            id: pok.idB,
                             name: pok.name,
                             hp: pok.hp,
                             attack: pok.attack,
@@ -82,7 +82,7 @@ router.get('/', async (req, res, next) => {
     let pokemons = [];
     try {
 
-            let api_1 = await axios.get(urlApi + '?limit=100&offset=0'); 
+            let api_1 = await axios.get(urlApi + '?limit=40&offset=0'); 
 
             // data.results -->       {
             //                          "name": "bulbasaur",

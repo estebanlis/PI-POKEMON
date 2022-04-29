@@ -1,12 +1,10 @@
 import {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { getPokemones, getTypes, filter,pagePok, setLoading } from '../actions';
-import CardPokes from './CardPokes';
+import { getPokemones, getTypes, setLoading } from '../actions';
 import Pagination from './Pagination';
 import PokesList from './PokesList';
 import SetFilters from './SetFilters';
-import Filters from './Filters';
+import {Filters} from './Filters';
 
 
 
@@ -19,21 +17,26 @@ export default function Home() {
     
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [pokPerPage]=useState(10);
+    const [pokPerPage]=useState(12);
     const [filters, setFilters] = useState({
-      PokLocales : false,
-      PokApi : false,
-      Todos: true,
       TypePok:'todos',
       orderAZ: false,
       orderZA: false,
       orderUpAttack: false,
       orderDownAttack: false
      });
+     const [fsource, setFsource] = useState({
+      PokLocales : false,
+      PokApi : false,
+      Todos: true,
+
+     })
+
+    const pokesFiltered = Filters(pokes, filters,fsource);
 
     const ixLastPok = currentPage * pokPerPage;
     const ixFirstPok = ixLastPok - pokPerPage;
-    const currentPokes = pokes.slice(ixFirstPok,ixLastPok);
+    const currentPokes = pokesFiltered && pokesFiltered.slice(ixFirstPok,ixLastPok);
 
     const paginate = (pageNumber) => {setCurrentPage(pageNumber);}
 
@@ -41,21 +44,45 @@ export default function Home() {
 
 
     useEffect(() => {
+      
             if(!pokes.length){
+              console.log('pase');
               dispatch(getTypes());
               dispatch(getPokemones());
+            }else{
+              dispatch(setLoading(false))
             }
     },[dispatch]);
+
+    useEffect(() => {
+      
+      setCurrentPage(1);
+      setFilters({
+        TypePok:'todos',
+        orderAZ: false,
+        orderZA: false,
+        orderUpAttack: false,
+        orderDownAttack: false
+       });
+      
+},[fsource]);
+
+    
 
         
    
   return (
     <>
-      <div className='paginado'>
-        <Pagination pokPerPage={pokPerPage} totalPok={pokes.length} paginate={paginate} ixCurrent={currentPage} />
-        <SetFilters types={types} filters={filters} setFilters={setFilters} />
-      </div>
-      <PokesList pokes={pokes} load={load} />
+      {load ? null :
+
+        <div className='paginado'>
+          <Pagination pokPerPage={pokPerPage} totalPok={pokesFiltered.length} paginate={paginate} ixCurrent={currentPage} />
+          <SetFilters types={types} filters={filters} setFilters={setFilters} fsource={fsource} setFsource={setFsource} />
+        </div>
+
+      }
+
+      <PokesList pokes={currentPokes} load={load} />
 
 
 

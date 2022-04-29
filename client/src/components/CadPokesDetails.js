@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
+import { setLoading } from '../actions';
 
 
 export default function CadPokesDetails(props) {
@@ -26,7 +27,7 @@ export default function CadPokesDetails(props) {
     let dispatch = useDispatch();
 
     useEffect (() =>{
-        //return (() =>dispatch(clearPokDetail()));
+        return (() =>dispatch(setLoading(true)));
     },[dispatch]);
 
     let hpCss = ((props.hp/255)*100).toFixed(2);
