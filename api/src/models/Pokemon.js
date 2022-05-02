@@ -8,12 +8,12 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
-      
+
     },
-    idB :{
+    idB: {
       type: DataTypes.VIRTUAL,
-      get(){
-        return this.id+'B';
+      get() {
+        return this.id + 'B';
       }
     },
     name: {
@@ -53,7 +53,7 @@ module.exports = (sequelize) => {
     },
     image: {
       type: DataTypes.STRING,
-      defaultValue: "https://user-images.githubusercontent.com/6562688/65653705-3074a880-dfe4-11e9-8cfe-d2c62112587e.jpg",
+      defaultValue: "https://i.ibb.co/qjnm6ZQ/img-pokemon-undef.png",
 
     },
 

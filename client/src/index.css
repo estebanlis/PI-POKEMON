@@ -8,12 +8,7 @@ body {
   font-family: sans-serif;
   font-weight: 300;
   background-color: #faeb39;
- 
-  
-  
-  
-  
-}
+ }
 
 a{
   text-decoration: none;
@@ -31,9 +26,6 @@ a{
   'menu'
   'contenido'
   'footer';
-
-  
-
 }
 .header{
   display: flex;
@@ -277,7 +269,7 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
   display: grid;
   grid-template-columns: auto;
   gap: 20px;
-  min-height: 641px;
+  min-height: 661px;
   align-content: flex-start;
   height: auto;
   color:#3e3c3c;
@@ -382,6 +374,7 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
 }
 
 .formPok{
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   grid-gap: 10px;
@@ -614,7 +607,7 @@ text-shadow: 2px 2px 2px #766e09;
 }
 
 .loader {
-	--color: #faeb39;
+	--color: rgb(90, 90, 250);
 	--size-mid: 6vmin;
 	--size-dot: 1.5vmin;
 	--size-bar: 0.4vmin;
