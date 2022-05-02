@@ -1,6 +1,5 @@
-import React,{useState,useEffect} from 'react'
-import { useDispatch } from 'react-redux';
-import { filter} from '../actions';
+import React from 'react'
+
 
 export default function Filters({types,filters,setFilters, fsource, setFsource}) {
 
@@ -129,7 +128,7 @@ export default function Filters({types,filters,setFilters, fsource, setFsource})
               <span>zA <input onChange={handleFilters} type='radio' name='filtersAZAttack' value='orderZA' defaultChecked={filters.ZA} /></span>
               <span>Attack ++ <input onChange={handleFilters} type='radio' name='filtersAZAttack' value='orderUpAttack' defaultChecked={filters.orderUpAttack} /></span>
               <span>Attack -- <input onChange={handleFilters} type='radio' name='filtersAZAttack' value='orderDownAttack' defaultChecked={filters.orderDownAttack} /></span>
-              <select style={{ borderRadius: "5px",borderRadius: "5px",fontFamily: "sans-serif",fontSize: "12px",
+              <select style={{borderRadius: "5px",fontFamily: "sans-serif",fontSize: "12px",
               fontWeight: "600",padding: "3px 7px", }} 
               value={filters.TypePok} name='TypePok' onChange={handleFilters} id="selectType">
                   <option value='todos' >Tipos</option>

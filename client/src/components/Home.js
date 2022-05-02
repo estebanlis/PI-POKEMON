@@ -4,7 +4,7 @@ import { getPokemones, getTypes, setLoading } from '../actions';
 import Pagination from './Pagination';
 import PokesList from './PokesList';
 import SetFilters from './SetFilters';
-import {Filters} from './Filters';
+import {Filters} from '../helpers/Filters';
 
 
 
@@ -46,7 +46,7 @@ export default function Home() {
     useEffect(() => {
       
             if(!pokes.length){
-              console.log('pase');
+             
               dispatch(getTypes());
               dispatch(getPokemones());
             }else{

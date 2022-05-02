@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { newPokemon, getTypes,setMsgDb, getPokemones} from '../actions';
+import { newPokemon, getTypes,setMsgDb, getPokemones,setMsgDbName,setLoading} from '../actions';
 
 
 export default function NewPokemon() {
 
     
-
+    let load = useSelector(state => state.loading);
     let types = useSelector(state => state.typesPok);
     let msgFromDb = useSelector(state => state.msgDbOK);
     let msgFromDbF = useSelector(state => state.msgDbFail);
+    let msgFromDbName = useSelector(state => state.msgDbName);
+    
     let dispatch = useDispatch();
 
     
@@ -25,7 +27,7 @@ export default function NewPokemon() {
         defense:'',
         height:'',
         weight:'',
-        image:'',
+       
         types:''
       }
       
@@ -47,10 +49,11 @@ export default function NewPokemon() {
       useEffect(() => {
         if(!types.length){
           dispatch(getTypes());
+          dispatch(setLoading(false)) 
           
         }
 
-        return () => {dispatch(getPokemones()); dispatch(setMsgDb(false));}
+        return () => {dispatch(getPokemones()); dispatch(setMsgDb(false));dispatch(setLoading(true)); }
       },[dispatch]);
 
       useEffect(() => {
@@ -62,7 +65,7 @@ export default function NewPokemon() {
     
     
       const handleOnChange = (e) => {
-          
+       
         setInput({
           ...input,
           [e.target.name]: e.target.value,
@@ -98,10 +101,12 @@ export default function NewPokemon() {
     
       const handleOnSubmit = (e) => {
         e.preventDefault();
+      
 
        
         if(!isInputValidate(inputErr)){
 
+          dispatch(setLoading(true));  
           dispatch(newPokemon(input));
         
         
@@ -130,7 +135,7 @@ export default function NewPokemon() {
 
               setInputErr({
                 ...inputErr,
-                name: <p className='pmsgErr'>*Solo caracteres.</p>
+                name: <p className='pmsgErr'>*Only characters.</p>
               });
 
             }
@@ -154,7 +159,8 @@ export default function NewPokemon() {
 
       const clearErr = (e) => {
         let target = e.target;
-        if(msgFromDb) {dispatch(setMsgDb(false))}     
+        if(msgFromDb) {dispatch(setMsgDb(false))}   
+        if(msgFromDbName) {dispatch(setMsgDbName(false))}    
               setInputErr({
                 ...inputErr,
                 [target.name]: false,
@@ -174,7 +180,7 @@ export default function NewPokemon() {
           }
         for (const property in input) {
             if(property !== 'image' && property !== 'types' ) {
-              console.log(property);
+              
               if(input[property] === '') {b= true}
            }else{
              if(property === 'types'){
@@ -194,9 +200,14 @@ export default function NewPokemon() {
        
        
         <form className='formPok' onSubmit={handleOnSubmit}>
-        {msgFromDb ? <div className='smsgExito'><span>Pokemon creado exitosamente.</span></div> : null}
+        {msgFromDb ? <div className='smsgExito'><span>Pokemon successfully created.</span></div> : null}
         
-        {msgFromDbF ? <div className='smsgError'><span>No se pudo crear el Pokemon.</span></div> : null}
+        {msgFromDbF ? <div className='smsgError'><span>Something wrong...</span></div> : null}
+
+        {msgFromDbName ? <div className='smsgError'><span>Name already exist.</span></div> : null}
+
+
+        
         
         <label>Name</label>
         <input autoFocus className={inputErr.name ? 'inputErr': null}  name="name" value={input.name} onChange={handleOnChange} onBlur={controlInput} onFocus={clearErr}></input>
@@ -249,7 +260,8 @@ export default function NewPokemon() {
 
               {inputErr.types ? inputErr.types : null}           
         
-        <button disabled={isInputValidate(inputErr)}  type="submit">Create</button>
+      
+        <button disabled={isInputValidate(inputErr)}  type="submit">{load ? <i class="loader --4"></i> :<span style={{fontWeight: "bold",}}>Create</span> }</button>
       </form>
 
 

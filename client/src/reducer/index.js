@@ -7,7 +7,8 @@ const initialState = {
     pokTemp:[],
     pokDetail:{},
     msgDbOK: false,
-    msgDbFail: false
+    msgDbFail: false,
+    msgDbName: false
 };
 
 const pokemones = (state = initialState, action) => {
@@ -23,11 +24,13 @@ const pokemones = (state = initialState, action) => {
                 
             case 'CREATE_POKEMON':
 
-                     console.log(action.payload)
+                     
                     return {
                         ...state,
+                        loading: false,
                         msgDbOK : action.payload.msg === 'ok' ? true : false,
-                        msgDbFail : action.payload.msgF === 'fail' ? true : false
+                        msgDbFail : action.payload.msgF === 'fail' ? true : false,
+                        msgDbName : action.payload.msgDbName === 'nameExist' ? true : false
                         
                     };
 
@@ -52,139 +55,7 @@ const pokemones = (state = initialState, action) => {
                             typesPok: action.payload
                         };        
                    
-            case 'FILTER' :
-            let pokFilter = state.pokemones;
             
-
-            if (action.payload.PokApi) {
-                pokFilter = pokFilter.filter(p => typeof p.id !== 'string');
-
-                if (action.payload.TypePok !== 'todos') {
-                    pokFilter = pokFilter.filter(p => {
-                        if (p.type.find(t => t === action.payload.TypePok)) return p;
-                    })
-
-                }
-                if (action.payload.orderAZ) {
-                    pokFilter = pokFilter.sort(SortArray);
-                }
-
-                if (action.payload.orderZA) {
-                    pokFilter = pokFilter.reverse(SortArray);
-                }
-                if (action.payload.orderUpAttack) {
-                    pokFilter = pokFilter.sort(function (a, b) {
-                        if (a.attack > b.attack) {
-                            return -1;
-                        }
-                        if (b.attack > a.attack) {
-                            return 1;
-                        }
-                        return 0;
-                    })
-                }
-                if (action.payload.orderDownAttack) {
-                    pokFilter = pokFilter.sort(function (a, b) {
-                        if (a.attack > b.attack) {
-                            return 1;
-                        }
-                        if (b.attack > a.attack) {
-                            return -1;
-                        }
-                        return 0;
-                    })
-                }
-            }
-
-            if (action.payload.PokLocales) {
-                pokFilter = state.pokemones.filter(p => typeof p.id === 'string');
-
-                if (action.payload.TypePok !== 'todos') {
-                    pokFilter = pokFilter.filter(p => {
-                        if (p.type.find(t => t === action.payload.TypePok)) return p;
-                    })
-
-                }
-                if (action.payload.orderAZ) {
-                    pokFilter = pokFilter.sort(SortArray);
-                }
-
-                if (action.payload.orderZA) {
-                    pokFilter = pokFilter.reverse(SortArray);
-                }
-                if (action.payload.orderUpAttack) {
-                    pokFilter = pokFilter.sort(function (a, b) {
-                        if (a.attack > b.attack) {
-                            return -1;
-                        }
-                        if (b.attack > a.attack) {
-                            return 1;
-                        }
-                        return 0;
-                    })
-                }
-                if (action.payload.orderDownAttack) {
-                    pokFilter = pokFilter.sort(function (a, b) {
-                        if (a.attack > b.attack) {
-                            return 1;
-                        }
-                        if (b.attack > a.attack) {
-                            return -1;
-                        }
-                        return 0;
-                    })
-                }
-            }
-
-            if (action.payload.Todos) {
-
-                if (action.payload.TypePok !== 'todos') {
-                    pokFilter = pokFilter.filter(p => {
-                        if (p.type.find(t => t === action.payload.TypePok)) return p;
-                    })
-
-                }
-                if (action.payload.orderAZ) {
-                    pokFilter = pokFilter.sort(SortArray);
-                }
-
-                if (action.payload.orderZA) {
-                    pokFilter = pokFilter.reverse(SortArray);
-                }
-                if (action.payload.orderUpAttack) {
-                    pokFilter = pokFilter.sort(function (a, b) {
-                        if (a.attack > b.attack) {
-                            return -1;
-                        }
-                        if (b.attack > a.attack) {
-                            return 1;
-                        }
-                        return 0;
-                    })
-                }
-                if (action.payload.orderDownAttack) {
-                    pokFilter = pokFilter.sort(function (a, b) {
-                        if (a.attack > b.attack) {
-                            return 1;
-                        }
-                        if (b.attack > a.attack) {
-                            return -1;
-                        }
-                        return 0;
-                    })
-                }
-            }
-
-
-            
-
-
-            return {
-                ...state,
-                pokTemp: pokFilter,
-                
-            };
-
             case 'setLoading':
                         return {
                             ...state,
@@ -203,6 +74,13 @@ const pokemones = (state = initialState, action) => {
                                 msgDbFail: action.payload,
                                 
                             };
+            case 'setMsgDbName':
+                                return {
+                                    ...state,
+                                    msgDbName: action.payload,
+                                    
+                                };
+                            
                         
             case 'CLEAR_POKDETAIL':
                             return {
@@ -211,16 +89,7 @@ const pokemones = (state = initialState, action) => {
                                 
                             };  
                          
-            case 'PAGE_POK':
-                let pokPage = state.pokTemp;
-                pokPage = pokPage.slice(action.payload.currentPage,action.payload.currentPage + action.payload.offset);
-
-                            return {
-                                ...state,
-                                pokTemp: pokPage
-                                
-                            };                           
-
+           
         
             default: return state;
         }
@@ -231,7 +100,3 @@ const pokemones = (state = initialState, action) => {
 
 export default pokemones;
 
-const  SortArray = (x, y) => {
-       
-    return x.name.localeCompare(y.name);
-  }

@@ -134,7 +134,7 @@ export  const Filters =(pokes,filters,fsource) => {
 
 const  SortArray = (x, y) => {
 
-    console.log('pase');
+    
        
     return x.name.localeCompare(y.name);
   }

@@ -223,6 +223,23 @@ router.post('/', async (req, res) => {
     
     const {name,hp,attack,defense,speed,height,weight,image,types} = req.body;
 
+    if(name !== '' || name !== ' '){
+        try {
+           
+            let pokemon = await axios.get(urlApi +'/'+name); 
+            //console.log(pokemon.toJSON());
+           
+            return res.json({msgDbName: 'nameExist'});
+
+        } catch (error) {
+          
+           
+
+            //res.status(400).json({ message: 'fail', status: 400 });
+            
+        }
+
+    }
     try {
         const newPokemon = await Pokemon.create(
             {

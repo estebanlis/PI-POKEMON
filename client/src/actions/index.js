@@ -1,3 +1,4 @@
+//Trae todos los pokemones
 export const getPokemones = () => dispatch => {
     return fetch('http://localhost:3001/pokemon/')
     .then(response => response.json())
@@ -5,8 +6,9 @@ export const getPokemones = () => dispatch => {
    
 };
 
+//Crea un pokemon nuevo en la DB local
 export const newPokemon = (payload) => dispatch => {
-    console.log(payload);
+    
     return fetch('http://localhost:3001/pokemon/',{
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -18,6 +20,7 @@ export const newPokemon = (payload) => dispatch => {
    
 };
 
+//Busca en pokemon por nombre en la api y en la DB 
 export const searchPok = (value) => dispatch => {
     return fetch(`http://localhost:3001/pokemon/?name=${value}`)
     .then(response => response.json())
@@ -26,13 +29,14 @@ export const searchPok = (value) => dispatch => {
    
 };
 
+// Setea la variable que indica que esta cargando datos desde backend
 export const setLoading = (payload) =>{
     return{
         type:'setLoading',
         payload
     }
 };
-
+//Setea variable que indica que fue exitoso la carga del pokemon en la db local
 export const setMsgDb = (payload) =>{
     return{
         type:'setMsgDb',
@@ -40,6 +44,7 @@ export const setMsgDb = (payload) =>{
     }
 };
 
+//Setea variable que indica hubo problemas en la carga del pokemon en la db local
 export const setMsgDbFail = (payload) =>{
     return{
         type:'setMsgDbFail',
@@ -47,6 +52,15 @@ export const setMsgDbFail = (payload) =>{
     }
 };
 
+export const setMsgDbName = (payload) =>{
+    return{
+        type:'setMsgDbName',
+        payload
+    }
+};
+
+
+//Limpia la variable objeto donde gurado el dalle de un pokemon
 export const clearPokDetail = () =>{
     return{
         type:'CLEAR_POKDETAIL',
@@ -54,6 +68,7 @@ export const clearPokDetail = () =>{
     }
 };
 
+// Trae los types desde la DB
 export const getTypes = () => dispatch => {
     return fetch('http://localhost:3001/type/')
     .then(response => response.json())
@@ -61,28 +76,10 @@ export const getTypes = () => dispatch => {
    
 };
 
+//trae pokemon por el ID, desde la api o db
 export const getPokById = (value) => dispatch => {
     return fetch(`http://localhost:3001/pokemon/${value}`)
     .then(response => response.json())
     .then(data => dispatch({type: 'GET_POK_BY_ID',payload: data}))
    
-};
-
-
-export const filter = (payload) =>{
-
-    
-    return{
-        type:'FILTER',
-        payload
-    }
-};
-
-export const pagePok = (payload) =>{
-
-    
-    return{
-        type:'PAGE_POK',
-        payload
-    }
 };
