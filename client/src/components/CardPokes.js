@@ -1,6 +1,7 @@
 import React from 'react';
 import '../index.css';
 import imagNotFound from '../assets/images/pok-search-not-found.jpg';
+import imgNotload from '../assets/images/imgPokNotLoad.png'
 
 export default function CardPokes(props) {
   const typeColor = {
@@ -30,7 +31,7 @@ export default function CardPokes(props) {
         </div> :
 
         <div className='cardPok'>
-          <img src={props.image} alt='imagePoke' />
+          <img src={props.image} onError={({currentTarget}) => {currentTarget.onerror = null; currentTarget.src= imgNotload}} alt='imagePoke' />
           <h2 className='namePok'><p>{props.name}</p></h2>
           <div className='typesPok'>
             {props.types && props.types.map((typ, index) => (

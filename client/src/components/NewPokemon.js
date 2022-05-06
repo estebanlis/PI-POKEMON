@@ -22,7 +22,7 @@ export default function NewPokemon() {
     height: '',
     weight: '',
 
-    types: ''
+    types: []
   }
 
   const [input, setInput] = useState(inputInicial);
@@ -78,7 +78,7 @@ export default function NewPokemon() {
     if (value.length > 2) {
       setInputErr({
         ...inputErr,
-        types: <p className='pmsgErr'>*Maximo dos tipos.</p>
+        types: <p className='pmsgErr'>*Max two types.</p>
       });
     } else {
       setInputErr({
@@ -91,6 +91,8 @@ export default function NewPokemon() {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
+
+    
 
     if (!isInputValidate(inputErr)) {
 
@@ -127,9 +129,18 @@ export default function NewPokemon() {
 
         setInputErr({
           ...inputErr,
-          [target.name]: <p className='pmsgErr'>*Numbers only.</p>
+          [target.name]: <p className='pmsgErr'>*Integer numbers only.</p>
         });
 
+      }else {
+        if(target.value < 0 ||  target.value > 200){
+
+          setInputErr({
+            ...inputErr,
+            [target.name]: <p className='pmsgErr'>*Allowed range [0-200].</p>
+          });
+
+        }
       }
     }
   }
@@ -164,7 +175,28 @@ export default function NewPokemon() {
     }
     return b;
   }
+  
+   
+ 
 
+   const isValidUrlimg = (e) => {
+    let target = e.target;
+    if(target.value === '') return
+    let url;
+    
+    try {
+      url = new URL(target.value);
+      
+    } catch (error) {
+      
+      setInputErr({
+        ...inputErr,
+        image: <p className='pmsgErr'>*invalid url.</p>
+      });
+    }
+    
+  }
+ 
   return (
     <div className='homeContent'>
 
@@ -221,7 +253,9 @@ export default function NewPokemon() {
           </div>
         </div>
         <label>Image</label>
-        <input name="image" value={input.image} onChange={handleOnChange}></input>
+        <input className={inputErr.image ? 'inputErr' : null} name="image"  value={input.image} onChange={handleOnChange} 
+        onBlur={isValidUrlimg} onFocus={clearErr}></input>
+        {inputErr.image ? inputErr.image : null}
         <label>Types</label>
 
         <select multiple={true} value={input.types} name='types' onChange={handleOnChangeTypes} id="selectType" >
@@ -232,7 +266,7 @@ export default function NewPokemon() {
         </select>
         {inputErr.types ? inputErr.types : null}
 
-        <button disabled={isInputValidate(inputErr)} type="submit">{load ? <i class="loader --4"></i> : <span
+        <button disabled={isInputValidate(inputErr)} type="submit">{load ? <i className="loader --4"></i> : <span
           style={{ fontWeight: "bold", }}>Create</span>}</button>
       </form>
 

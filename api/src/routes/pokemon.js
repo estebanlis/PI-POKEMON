@@ -176,12 +176,13 @@ router.get('/:id', async (req, res) => {
             return res.json(obj);
 
         } catch (error) {
-            res.status(404).json(error.message);
+            return res.status(404).json({ msg: 'fail' });
         }
 
     } else {
 
         id = Number(id.substring(0, id.length - 1));
+        console.log('id: ', id);
 
         try {
 
@@ -209,7 +210,7 @@ router.get('/:id', async (req, res) => {
             return res.json(obj);
 
         } catch (error) {
-            res.status(404).json(error.message);
+            return res.status(404).json({ msg: 'fail' });
         }
 
 
@@ -248,7 +249,7 @@ router.post('/', async (req, res) => {
 
 
 
-        }
+        } 
         try {
 
             let pokemon = await axios.get(urlApi + '/' + name);
@@ -287,7 +288,7 @@ router.post('/', async (req, res) => {
         res.json({ msg: 'ok' });
 
     } catch (error) {
-        console.log(error.message);
+        //console.log(error.message);
         return res.status(404).json({ msgF: 'fail' });
         //return res.status(404).json(error.message); 
     }

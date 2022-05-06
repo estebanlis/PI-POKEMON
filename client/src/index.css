@@ -1,3 +1,4 @@
+
 *{
   margin: 0;
   padding: 0;
@@ -333,7 +334,7 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
   flex-direction: row;
   justify-content: space-evenly;
   
-  width: 550px;
+  width: 580px;
   padding: 20px 20px;
   box-shadow: 5px 5px 1px rgba(94, 89, 20, 0.5); 
   border-radius: 10px;
@@ -357,18 +358,18 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
     margin: 10px 10px;
     text-align: left;
     justify-content: center;
-    width: 215px;
+    width: 230px;
     font-weight: 600;
     font-size: 15px;
     border-left: 1px solid #faeb39;
-    padding-left: 15px;
+    padding-left: 33px;
 }
 
 .heightWeightPok{
   display: flex;
    gap:15px;
-   padding:5px 0px;
-   border-bottom: solid 1px #eee;
+   padding:10px 0px;
+   border: solid 1px #eee;
    justify-content: center;
     margin-bottom:3px; 
 }
@@ -444,8 +445,9 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
 }
 
 .container-features {
-  width: 100%; /* Full width */
-  background-color: #ddd; /* Grey background */
+  width: 100%; 
+  background-color: #ddd; 
+  border-radius: 6px;
 }
 
 .featuresGrid{
@@ -465,13 +467,17 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
 
 
 .skills {
-  text-align: right; /* Right-align text */
-  padding-top: 1px; /* Add top padding */
-  padding-bottom: 1px; /* Add bottom padding */
-  color: white; /* White text color */
+  text-align: right; 
+  padding-top: 1px; 
+  padding-bottom: 1px;
+  color: white; 
+  font-weight: 100;
+  text-shadow: 2px 1px 1px black;
+  border-radius: 6px 0px 0px 6px;
+  padding-right: 6px;
 }
 
-.HP { background-color: #04AA6D;} /* Green */
+.HP { background-color: #04AA6D;}
 
 .statsBar {
   display: grid;
@@ -650,4 +656,42 @@ text-shadow: 2px 2px 2px #766e09;
 	33%, 44% {
 		transform: scaleX(1);
 	}
+}
+
+.arrowLeft{
+
+  height: 18px;
+  width: 18px;
+  display: inline-block;
+  background-color: #3e3c3c;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  mask-image: url("./assets/images/arrow-left.svg");
+  margin: 0px 12px -3px 0px;
+ 
+
+}
+
+.arrowRight{
+
+  height: 18px;
+  width: 18px;
+  display: inline-block;
+  background-color: #3e3c3c;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  mask-image: url("./assets/images/arrow-right.svg");
+  margin: 0px 0px -3px 12px;
+  filter: drop-shadow(0px 3px 3px rgba(0, 0, 0, 0.4));
+}
+.arrowLeft:hover, .arrowRight:hover {
+  background-color: #070707;
 }

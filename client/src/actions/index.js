@@ -10,7 +10,7 @@ export const getPokemones = () => dispatch => {
 
 //Crea un pokemon nuevo en la DB local
 export const newPokemon = (payload) => dispatch => {
-
+    if(payload.image === '') {delete payload.image}
     return fetch(`${act.URL_BACK}pokemon`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

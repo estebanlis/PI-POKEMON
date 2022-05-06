@@ -75,7 +75,7 @@ export default function Home() {
 
       }
 
-      <PokesList pokes={currentPokes} load={load} />
+      <PokesList pokes={currentPokes} load={load} ixFirstPok={ixFirstPok} />
 
 
 

@@ -46,7 +46,8 @@ const pokemones = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                pokDetail: action.payload
+                pokDetail: action.payload,
+                msgDbFail: action.payload.msg === 'fail' ? true : false
             };
 
         case act.GET_TYPES:

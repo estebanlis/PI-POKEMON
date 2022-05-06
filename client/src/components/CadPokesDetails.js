@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
 import { setLoading } from '../actions';
+import imgNotload from '../assets/images/imgPokNotLoad.png'
 
 
 export default function CadPokesDetails(props) {
@@ -41,7 +42,7 @@ export default function CadPokesDetails(props) {
 
         <div style={{ margin: "auto" }}>
 
-          <img src={props.image} alt='imagePoke' />
+          <img src={props.image} onError={({currentTarget}) => {currentTarget.onerror = null; currentTarget.src= imgNotload}} alt='imagePoke' />
           <h2 className='namePok'><p>#{props.id} {props.name}</p></h2>
 
 
