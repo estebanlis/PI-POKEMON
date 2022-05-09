@@ -121,16 +121,18 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
 
 .button_find{
   padding: 2px 8px;
-  margin: 0px 4px;
+  margin: 0px 0px 0px 7px;
   height: 27px;
   border-radius: 0.5em;
-  border: solid 2px #1C4CBD;
+  border: solid 1px #1C4CBD;
   box-shadow: 2px 2px 1px #1c4cbd;
-  background: white;
+  background: #a9c0f5;;
   font-size: 12px;
   font-weight: bold;
-  color: #525050;
+  color: #ffffff;
   cursor: pointer;
+  text-shadow: 1px 1px 1px black;
+  letter-spacing: 1px;
 }
 
 .button_find:active{
@@ -141,18 +143,27 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
 
 
 .button_newPok{
-  font-size: 12px;
+    font-size: 12px;
     font-weight: bold;
-  cursor: pointer;
+    cursor: pointer;
     display: block;
     box-sizing: border-box;
-    border: 2px solid #CE2211;
+    border: 1px solid #CE2211;
     border-radius: 0.5em;
     padding: 0.35em 0.2em;
-    background: #ffffff;
-    color: #525050;
     
     box-shadow: 2px 2px 1px #CE2211;
+    background: #e3968f;
+    color: #fff;
+    box-shadow: 2px 2px 1px #ce2211;
+    text-shadow: 1px 1px 1px black;
+    letter-spacing: 1px;
+    
+
+    
+}
+.button_newPok:hover{
+  width: auto;
 }
 
 .button_newPok:active{

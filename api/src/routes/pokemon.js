@@ -222,10 +222,10 @@ router.post('/', async (req, res) => {
 
     let { name, hp, attack, defense, speed, height, weight, image, types } = req.body;
 
-    console.log(req.body);
+    
 
     if(Object.keys(req.body).length === 0){
-        return res.status(500).json({ msgF: 'fail' });
+        return res.status(500);
     }
 
     name = name.toLowerCase();
@@ -237,14 +237,11 @@ router.post('/', async (req, res) => {
                 where: {
                     name: name
                 },
-                include: {
-                    model: Type,
-                    attributes: ['name']
-                }
+                
             });
            
 
-
+            console.log(pok.toJSON());
             return res.json({ msgDbName: 'nameExist' });
 
 
