@@ -12,7 +12,7 @@ router.get('/', async (req, res, next) => {
 
     if (name) {
 
-        console.log('name: ', name);
+       
         name = name.toLowerCase();
 
         try {
@@ -182,8 +182,7 @@ router.get('/:id', async (req, res) => {
     } else {
 
         id = Number(id.substring(0, id.length - 1));
-        console.log('id: ', id);
-
+        
         try {
 
             let pok = await Pokemon.findByPk(id, {
@@ -223,6 +222,12 @@ router.post('/', async (req, res) => {
 
     let { name, hp, attack, defense, speed, height, weight, image, types } = req.body;
 
+    console.log(req.body);
+
+    if(Object.keys(req.body).length === 0){
+        return res.status(500).json({ msgF: 'fail' });
+    }
+
     name = name.toLowerCase();
 
     if (name !== '' || name !== ' ') {
@@ -237,7 +242,7 @@ router.post('/', async (req, res) => {
                     attributes: ['name']
                 }
             });
-            console.log(pok.toJSON());
+           
 
 
             return res.json({ msgDbName: 'nameExist' });
