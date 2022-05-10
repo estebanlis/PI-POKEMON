@@ -11,12 +11,12 @@ export default function PokesList({ pokes, load, ixFirstPok }) {
 
    return (
       <>
-         <div className={load ? "homeContent" : "homeContent list"}>
+         <div className={load ? "homeContent" : pokes.length > 1 ? "homeContent list" : "homeContent"}>
             {load ? <div className="pokemonLoader"></div> : pokes && pokes.length ? pokes.map((p,index) => (
                <Link to={`/pokemon/${p.id}?index=${ixFirstPok + index} `} key={p.id} onClick={() => { dispatch(setLoading(true)); window.scrollTo(0, 0); }} >
                   <CardPokes id={p.id} name={p.name} image={p.image} types={p.type} />
                </Link>))
-               : <p>Not found pokemon</p>}
+               : <p>Oops! Not found Pokemones.</p>}
          </div>
       </>
    )

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setLoading, setMsgDbFail } from '../actions';
+import { setLoading, setMsgDbFail,clearSearchResult } from '../actions';
 import { Link } from 'react-router-dom';
 
 
@@ -15,7 +15,11 @@ export default function SearchResult() {
 
   useEffect(() => {
 
-    return () => dispatch(setMsgDbFail(false));
+    return () => {
+      dispatch(setMsgDbFail(false));
+      dispatch(clearSearchResult());
+
+    }
   }, [dispatch]);
 
   return (

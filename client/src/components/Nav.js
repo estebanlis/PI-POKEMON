@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { searchPok, setLoading } from '../actions';
+import { searchPok, setLoading,getPokById } from '../actions';
 import { useNavigate } from 'react-router-dom';
 import '../index.css';
 import imageLogo from '../assets/images/pokemon_logo_PNG9.png'
@@ -9,7 +9,7 @@ import Footer from './Footer';
 import { Outlet, Link } from 'react-router-dom';
 
 export default function Nav() {
-  let [input, setInput] = useState({ searchValue: 'Venusaur' });
+  let [input, setInput] = useState({ searchValue: '' });
   let dispatch = useDispatch();
   let navigateTo = useNavigate();
   let handleChange = (e) => {
@@ -21,7 +21,12 @@ export default function Nav() {
 
   let handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(searchPok(input.searchValue));
+    console.log('input.searchValue: ',input.searchValue)
+    
+    
+      dispatch(searchPok(input.searchValue));
+    
+    
     setInput({ searchValue: '' });
     dispatch(setLoading(true));
 

@@ -90,6 +90,13 @@ const pokemones = (state = initialState, action) => {
                 pokDetail: {}
 
             };
+        case act.CLEAR_SEARCH_RESULT:
+            return {
+                ...state,
+                searchResult: {}
+
+            };
+
 
 
 

@@ -70,6 +70,13 @@ export const clearPokDetail = () => {
     }
 };
 
+export const clearSearchResult = () => {
+    return {
+        type: act.CLEAR_SEARCH_RESULT,
+
+    }
+};
+
 // Trae los types desde la DB
 export const getTypes = () => dispatch => {
     return fetch(`${act.URL_BACK}type/`)

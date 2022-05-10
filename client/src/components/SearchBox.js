@@ -11,7 +11,7 @@ export default function SearchBox({ input, handleChange, handleSubmit }) {
         <input
           type='search'
           name='searchValue'
-          value={input.name}
+          value={input.searchValue}
           onChange={(e) => handleChange(e)}
           placeholder='Name/Id'
           required>

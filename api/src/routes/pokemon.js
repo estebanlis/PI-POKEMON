@@ -10,45 +10,70 @@ router.get('/', async (req, res, next) => {
 
     let { name } = req.query;
 
+
+/////////////////////Busqueda por Nombre o ID/////////////////////////
     if (name) {
 
-       
-        name = name.toLowerCase();
-
         try {
+            let id = 0;
+            let pok = {};
+            let obj = {};
 
-            let pok = await Pokemon.findOne({
-                where: {
-                    name: name
-                },
-                include: {
-                    model: Type,
-                    attributes: ['name']
-                }
-            });
+            if (/([1-9])+B/.test(name)) {
+                id = Number(name.substring(0, name.length - 1));
 
-            let obj = {
-                id: pok.idB,
-                name: pok.name,
-                hp: pok.hp,
-                attack: pok.attack,
-                defense: pok.defense,
-                speed: pok.speed,
-                height: pok.height,
-                weight: pok.weight,
-                image: pok.image,
-                type: pok.types?.map(t => t.name)
+                pok = await Pokemon.findOne({
+                    where: {
+                        id: id
+                    },
+                    include: {
+                        model: Type,
+                        attributes: ['name']
+                    }
+                });
+            }
+            else {
+
+                name = name.toLowerCase();
+
+                pok = await Pokemon.findOne({
+                    where: {
+                        name: name
+                    },
+                    include: {
+                        model: Type,
+                        attributes: ['name']
+                    }
+                });
+
             }
 
-            return res.json(obj);
+
+
+            if (pok !== null) {
+
+                obj = {
+                    id: pok.idB,
+                    name: pok.name,
+                    hp: pok.hp,
+                    attack: pok.attack,
+                    defense: pok.defense,
+                    speed: pok.speed,
+                    height: pok.height,
+                    weight: pok.weight,
+                    image: pok.image,
+                    type: pok.types?.map(t => t.name)
+                }
+
+                return res.json(obj);
+            }
+
 
 
 
         } catch (error) {
-            //res.status(404).json(error.message);  
 
-
-
+            console.log(error.message);
         }
 
         try {
@@ -68,31 +93,37 @@ router.get('/', async (req, res, next) => {
                 type: pokemon.data.types.length > 0 ? pokemon.data.types.map(t => t.type.name) : []
             }
 
+
             return res.json(obj);
 
         } catch (error) {
 
 
-
-            //res.status(400).json({ message: 'fail', status: 400 });
             return res.status(404).json({ msg: 'fail' });
+
         }
     }
+
+/////////////////////Trae los datos de los pokemones/////////////////
 
     let pokemons = [];
     try {
 
         let api_1 = await axios.get(urlApi + '?limit=40&offset=0');
 
-        // data.results -->       {
+        //////////////////////////////////////////////////////////////////////////////
+        // data.results -->       {                                                     
         //                          "name": "bulbasaur",
         //                          "url": "https://pokeapi.co/api/v2/pokemon/1/"
         //                        },
+        //////////////////////////////////////////////////////////////////////////////
 
         let api_2 = api_1.data.results.map(u => u.url); // --> ["url", "url", ....]
 
-        let api_3 = await axios.all(api_2.map(e => axios.get(e))); // lo mismo que Promise.all
+        let api_3 = await axios.all(api_2.map(e => axios.get(e))); // lo mismo que Promise.all ---> [{..}, {..}, ...]
 
+
+////////////////// Filtro los datos que necesito mandar al front.//////////////
 
         pokemons = api_3.map(pok => {
             let obj = {};
@@ -106,12 +137,14 @@ router.get('/', async (req, res, next) => {
             return obj;
         })
 
-        //res.json(pokemons);
+
 
     } catch (error) {
-        //res.status(404).json(error.message);
 
+        console.log(error.message);
     }
+
+//////////////////// Busco todos los pokemones de la db local //////////////
 
     try {
 
@@ -127,12 +160,7 @@ router.get('/', async (req, res, next) => {
             let obj = {
                 id: p.idB,
                 name: p.name,
-                // hp: p.hp,
                 attack: p.attack,
-                // defense: p.defense,
-                // speed: p.speed,
-                // height: p.height,
-                // weight: p.weight,
                 image: p.image,
                 type: p.types?.map(t => t.name)
             }
@@ -141,11 +169,11 @@ router.get('/', async (req, res, next) => {
 
         })
 
-
+        console.log(pok)
         return res.json([...pokMap, ...pokemons]);
 
     } catch (error) {
-        res.status(404).json(error.message);
+        return res.status(404).json({ msg: error.message });
 
     }
 
@@ -155,7 +183,7 @@ router.get('/:id', async (req, res) => {
 
     let { id } = req.params;
 
-    if (id.indexOf('B') < 0) { // consulto si id tiene un 'B', si true pertenece DB local, caso contrario es para la api externa
+    if (!/([1-9])+B/.test(id)) { // consulto si id tiene una 'B', si true pertenece DB local, caso contrario es para la api externa
 
         try {
             let pokemon = await axios.get(urlApi + '/' + id); // trae pokemon desde la api por el id
@@ -182,7 +210,7 @@ router.get('/:id', async (req, res) => {
     } else {
 
         id = Number(id.substring(0, id.length - 1));
-        
+
         try {
 
             let pok = await Pokemon.findByPk(id, {
@@ -222,9 +250,9 @@ router.post('/', async (req, res) => {
 
     let { name, hp, attack, defense, speed, height, weight, image, types } = req.body;
 
-    
 
-    if(Object.keys(req.body).length === 0){
+
+    if (Object.keys(req.body).length === 0) {
         return res.status(500);
     }
 
@@ -237,9 +265,9 @@ router.post('/', async (req, res) => {
                 where: {
                     name: name
                 },
-                
+
             });
-           
+
 
             console.log(pok.toJSON());
             return res.json({ msgDbName: 'nameExist' });
@@ -251,7 +279,7 @@ router.post('/', async (req, res) => {
 
 
 
-        } 
+        }
         try {
 
             let pokemon = await axios.get(urlApi + '/' + name);
@@ -285,7 +313,7 @@ router.post('/', async (req, res) => {
 
         if (types) newPokemon.setTypes(types);
 
-       
+
 
         res.json({ msg: 'ok' });
 

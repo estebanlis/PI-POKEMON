@@ -61,12 +61,12 @@ export default function PokeDetails() {
         }
         {load ? null : 
             <div>
-              {currentIndexPok && pokTemp.length > 0 ? <Link to={`/pokemon/${pokTemp && indexPrev >= 0 ? pokTemp[indexPrev].id : null}?index=${indexPrev}`} style={indexPrev >= 0 ? null : { display: "none" }}>
-                <span className='arrowLeft'></span>
+              {currentIndexPok && pokTemp.length > 0 ? <Link to={`/pokemon/${pokTemp && indexPrev >= 0 ? pokTemp[indexPrev].id : null}?index=${indexPrev}`} style={indexPrev >= 0 ? null : {pointerEvents: "none"}}>
+                <span className='arrowLeft' style={indexPrev >= 0 ? null : { backgroundColor: "#c9c6c6"}}></span>
               </Link> : null}
               <Link to='/home'><span style={{ fontWeight: "600" }}> Back </span></Link>
-              {currentIndexPok && pokTemp.length > 0 ? <Link to={`/pokemon/${pokTemp && indexNext <= pokTemp.length - 1 ? pokTemp[indexNext].id : null}?index=${indexNext}`} style={indexNext <= pokTemp.length - 1 && indexNext > 0 ? null : { display: "none" }}>
-                <span className='arrowRight'></span>
+              {currentIndexPok && pokTemp.length > 0 ? <Link to={`/pokemon/${pokTemp && indexNext <= pokTemp.length - 1 ? pokTemp[indexNext].id : null}?index=${indexNext}`} style={indexNext <= pokTemp.length - 1 && indexNext > 0 ? null : { pointerEvents: "none"}}>
+                <span className='arrowRight' style={indexNext <= pokTemp.length - 1 && indexNext > 0 ? null : { backgroundColor: "#c9c6c6"}}></span>
               </Link> : null}
 
             </div> 
