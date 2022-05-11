@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { searchPok, setLoading,getPokById } from '../actions';
+import { searchPok, setLoading } from '../actions';
 import { useNavigate } from 'react-router-dom';
 import '../index.css';
 import imageLogo from '../assets/images/pokemon_logo_PNG9.png'
@@ -21,7 +21,7 @@ export default function Nav() {
 
   let handleSubmit = (e) => {
     e.preventDefault();
-    console.log('input.searchValue: ',input.searchValue)
+    
     
     
       dispatch(searchPok(input.searchValue));

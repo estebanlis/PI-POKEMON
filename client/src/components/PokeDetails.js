@@ -4,33 +4,32 @@ import { Link, useParams, useSearchParams } from 'react-router-dom'
 import CardPokesDetails from './CadPokesDetails';
 import { getPokById, clearPokDetail, setMsgDbFail } from '../actions';
 import PageNotFound from './PageNotFound';
-import arrowLeft from '../assets/images/arrow-left.svg';
-import arrowRight from '../assets/images/arrow-right.svg';
+
 
 export default function PokeDetails() {
   let { id } = useParams();
   let msgFromDb = useSelector(state => state.msgDbFail);
-  console.log('idParams: ', id)
+  
   let load = useSelector(state => state.loading);
   let pok = useSelector(state => state.pokDetail);
   let pokTemp = useSelector(state => state.pokTemp);
   let dispatch = useDispatch();
   const [searchParams] = useSearchParams();
-  console.log('tamPok: ', pokTemp.length)
+  
   useEffect(() => {
 
     dispatch(getPokById(id));
     return () => {
       dispatch(clearPokDetail());
       dispatch(setMsgDbFail(false));
-      console.log('pase return pokedetails')
+      
     }
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
-  let paramasQuery = searchParams.get('index');
-  console.log('paramasQuery: ', paramasQuery)
+  //let paramasQuery = searchParams.get('index');
+  
   let currentIndexPok = searchParams.get('index');
-  console.log('query: ', currentIndexPok);
+  
   let indexPrev = 0;
   let indexNext = 0;
   if (currentIndexPok) {
@@ -39,11 +38,11 @@ export default function PokeDetails() {
       if (currentIndexPokNum < pokTemp.length - 1) {
         indexNext = currentIndexPokNum + 1;
       }
-      console.log('indexNext: ', indexNext)
+      
       if (currentIndexPokNum >= 0) {
         indexPrev = currentIndexPokNum - 1;
       }
-      console.log('indexPrev: ', indexPrev)
+      
     }
   }
   if (msgFromDb) {

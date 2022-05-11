@@ -9,7 +9,20 @@ body {
   font-family: sans-serif;
   font-weight: 300;
   background-color: #faeb39;
+  
+  
  }
+
+.landing {
+
+  
+  background-image: url("./assets/images/bk-all-pok-body.png") ;
+  background-repeat: no-repeat;
+  background-size: 115%;
+  background-blend-mode: overlay;
+  background-position: -170px -141px;
+
+}
 
 a{
   text-decoration: none;
@@ -169,7 +182,7 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
     box-sizing: border-box;
     border: 1px solid #CE2211;
     border-radius: 16.5em;
-    padding:3px 3px 3px 4px;
+    padding:5px 3px 3px 4px;
     box-shadow: 2px 2px 1px #ce2211;
     background: #e3968f;
     color: #fff;
@@ -183,6 +196,7 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
 .button_newPok:hover{
   width: 150px;
   border-radius: 0.5em;
+  padding:3px 3px 3px 4px;
 }
 
 .button_newPok:active{
@@ -204,7 +218,7 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
     gap: 5px;
 }
 .cardPok{
-  animation: fadeInAnimationError ease 1s;
+  animation: fadeInAnimation ease 1s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
   display: flex;
@@ -364,7 +378,7 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
 }
 
 .cardPokDetail{
-  animation: fadeInAnimationError ease 1s;
+  animation: fadeInAnimation ease 300ms;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
   display: flex;
@@ -381,6 +395,9 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
 }
 
 .cardPokDetail img{
+  animation: fadeInAnimation ease 1s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
   display: block;
   height: 220px;
   
@@ -412,7 +429,7 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
 }
 
 .formPok{
-  animation: fadeInAnimationError ease 1s;
+  animation: fadeInAnimation ease 1s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
   margin-top: 20px;
@@ -446,7 +463,7 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
 }
 
 .inputErr{
-  animation: fadeInAnimationError ease 1s;
+  animation: fadeInAnimation ease 1s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
 
@@ -456,7 +473,7 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
 }
 
 .pmsgErr{
-  animation: fadeInAnimationError ease 1s;
+  animation: fadeInAnimation ease 1s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
   font-size: 12px; 
@@ -465,7 +482,7 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
   text-align: center;
 }
 
-@keyframes fadeInAnimationError {
+@keyframes fadeInAnimation {
   0% {
       opacity: 0;
   }
@@ -475,7 +492,7 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
 }
 
 .smsgExito {
-  animation: fadeInAnimationError ease 1s;
+  animation: fadeInAnimation ease 1s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
   border: solid 1px #31a30a;
@@ -485,7 +502,7 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
     text-align: center;
 }
 .smsgError {
-  animation: fadeInAnimationError ease 1s;
+  animation: fadeInAnimation ease 1s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
   border: solid 1px red;
@@ -553,7 +570,11 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
   background: linear-gradient(to bottom, rgb(254, 0, 1) 50%, white 50% );
   border-radius: 50%;
   border: 3px solid black;
-  animation: spin 1s linear infinite;
+  animation-name: spin ;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+
   margin-top: 50px;
 }
 
@@ -581,14 +602,34 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
 
 }
 
+.loaderInicial{
+  animation-name: TranslateAnimation ;
+  animation-duration: 555ms;
+  animation-iteration-count: 1;
+}
+
+@keyframes TranslateAnimation {
+  from{
+      transform: scale(4) translateY(40px);
+  }
+  to {
+    transform: scale(1) translateY(0px);
+  }
+}
+
 /* Spin Animation */
 @keyframes spin {
   from {
     transform: rotate(0deg);
+    
+   
   }
   to {
     transform: rotate(360deg);
+    
+    
   }
+  
 }
 
 /*-------------------*/
@@ -666,7 +707,7 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
 }
 
 .letsGo{
-animation: fadeInAnimationError ease 2s;
+animation: fadeInAnimation ease 2s;
 animation-iteration-count: 1;
 animation-fill-mode: forwards; 
 text-align: center;

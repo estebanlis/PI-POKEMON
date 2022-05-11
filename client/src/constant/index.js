@@ -11,6 +11,7 @@ export const setLoading = 'setLoading';
 export const setMsgDb = 'setMsgDb';
 export const setMsgDbFail = 'setMsgDbFail';
 export const setMsgDbName = 'setMsgDbName';
+export const setFlag = 'SetFlag';
 export const URL_BACK = 'http://localhost:3001/'
 //export const URL_BACK = 'http://localhost:3001/'
 

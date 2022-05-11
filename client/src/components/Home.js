@@ -31,9 +31,9 @@ export default function Home() {
   })
 
   const pokesFiltered = Filters(pokes, filters, fsource);
-  const ixLastPok = currentPage * pokPerPage;
-  const ixFirstPok = ixLastPok - pokPerPage;
-  const currentPokes = pokesFiltered && pokesFiltered.slice(ixFirstPok, ixLastPok);
+  const ixLastPok = currentPage * pokPerPage; // indice del arreglo del ultimo pokemon
+  const ixFirstPok = ixLastPok - pokPerPage;  // indice del primero
+  const currentPokes = pokesFiltered && pokesFiltered.slice(ixFirstPok, ixLastPok); // arreglo que se muestra por pagina
 
   const paginate = (pageNumber) => { setCurrentPage(pageNumber); }
 
@@ -49,6 +49,7 @@ export default function Home() {
     } else {
       dispatch(setLoading(false))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   useEffect(() => {
@@ -70,7 +71,7 @@ export default function Home() {
 
         <div className='paginado'>
           <Pagination pokPerPage={pokPerPage} totalPok={pokesFiltered.length} paginate={paginate} ixCurrent={currentPage} />
-          <SetFilters types={types} filters={filters} setFilters={setFilters} fsource={fsource} setFsource={setFsource} />
+          <SetFilters types={types} filters={filters} setFilters={setFilters} fsource={fsource} setFsource={setFsource} paginate={paginate}/>
         </div>
 
       }

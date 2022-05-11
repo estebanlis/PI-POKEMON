@@ -6,7 +6,7 @@ const router = Router();
 
 const urlApi = 'https://pokeapi.co/api/v2/pokemon';
 
-router.get('/', async (req, res, next) => {
+router.get('/', async (req, res) => {
 
     let { name } = req.query;
 

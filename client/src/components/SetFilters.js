@@ -2,7 +2,7 @@ import React from 'react'
 import arrow from '../assets/images/arrow.svg';
 
 
-export default function Filters({ types, filters, setFilters, fsource, setFsource }) {
+export default function Filters({ types, filters, setFilters, fsource, setFsource, paginate }) {
 
 
     const handleFilters = event => {
@@ -110,6 +110,8 @@ export default function Filters({ types, filters, setFilters, fsource, setFsourc
                 TypePok: event.target.value,
 
             });
+
+            paginate(1);
         }
 
     }

@@ -10,7 +10,7 @@ export const getPokemones = () => dispatch => {
 
 //Crea un pokemon nuevo en la DB local
 export const newPokemon = (payload) => dispatch => {
-    if(payload.image === '') {delete payload.image}
+    if(payload.image === '') {delete payload.image} // si borrabas el contenido del input imagen quedaba con el valor ''
     return fetch(`${act.URL_BACK}pokemon`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -57,6 +57,13 @@ export const setMsgDbFail = (payload) => {
 export const setMsgDbName = (payload) => {
     return {
         type: act.setMsgDbName,
+        payload
+    }
+};
+
+export const setFlag = (payload) => {
+    return {
+        type: act.setFlag,
         payload
     }
 };

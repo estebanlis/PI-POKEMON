@@ -10,6 +10,7 @@ export  const Filters =(pokes,filters,fsource) => {
         if (filters.TypePok !== 'todos') {
             pokFilter = pokFilter.filter(p => {
                 if (p.type.find(t => t === filters.TypePok)) return p;
+                return null
             })
 
         }
@@ -50,6 +51,7 @@ export  const Filters =(pokes,filters,fsource) => {
         if (filters.TypePok !== 'todos') {
             pokFilter = pokFilter.filter(p => {
                 if (p.type.find(t => t === filters.TypePok)) return p;
+                return null
             })
 
         }
@@ -91,6 +93,7 @@ export  const Filters =(pokes,filters,fsource) => {
         if (filters.TypePok !== 'todos') {
             pokFilter = pokFilter.filter(p => {
                 if (p.type.find(t => t === filters.TypePok)) return p;
+                return null
             })
 
         }

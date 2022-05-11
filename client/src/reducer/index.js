@@ -9,7 +9,8 @@ const initialState = {
     pokDetail: {},
     msgDbOK: false,
     msgDbFail: false,
-    msgDbName: false
+    msgDbName: false,
+    flag: false 
 };
 
 const pokemones = (state = initialState, action) => {
@@ -82,6 +83,12 @@ const pokemones = (state = initialState, action) => {
                 msgDbName: action.payload,
 
             };
+        case act.setFlag:
+                return {
+                    ...state,
+                        flag: action.payload,
+    
+                };   
 
 
         case act.CLEAR_POKDETAIL:

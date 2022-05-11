@@ -49,12 +49,13 @@ export default function NewPokemon() {
     dispatch(setLoading(false))
 
     return () => { dispatch(getPokemones()); dispatch(setMsgDb(false)); dispatch(setLoading(true)); }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   useEffect(() => {
 
     if (msgFromDb) { setInput(inputInicial) }
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [msgFromDb]);
 
   const handleOnChange = (e) => {
@@ -92,12 +93,11 @@ export default function NewPokemon() {
   const handleOnSubmit = (e) => {
     e.preventDefault();
 
-    
-
     if (!isInputValidate(inputErr)) {
 
       dispatch(setLoading(true));
       dispatch(newPokemon(input));
+      
     }
   }
 
@@ -182,10 +182,12 @@ export default function NewPokemon() {
    const isValidUrlimg = (e) => {
     let target = e.target;
     if(target.value === '') return
-    let url;
+    
     
     try {
-      url = new URL(target.value);
+      // eslint-disable-next-line no-unused-vars
+      let url = new URL(target.value);
+      
       
     } catch (error) {
       
