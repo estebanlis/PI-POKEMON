@@ -143,7 +143,7 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
 
 
 .button_newPok{
-    font-size: 12px;
+   /*  font-size: 12px;
     font-weight: bold;
     cursor: pointer;
     display: block;
@@ -157,13 +157,32 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
     color: #fff;
     box-shadow: 2px 2px 1px #ce2211;
     text-shadow: 1px 1px 1px black;
+    letter-spacing: 1px; */
+
+    width: 27px;
+    overflow: hidden;
+    height: 27px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    display: block;
+    box-sizing: border-box;
+    border: 1px solid #CE2211;
+    border-radius: 16.5em;
+    padding:3px 3px 3px 4px;
+    box-shadow: 2px 2px 1px #ce2211;
+    background: #e3968f;
+    color: #fff;
+    box-shadow: 2px 2px 1px #ce2211;
+    text-shadow: 1px 1px 1px black;
     letter-spacing: 1px;
-    
+    transition: width 100ms;
 
     
 }
 .button_newPok:hover{
-  width: auto;
+  width: 150px;
+  border-radius: 0.5em;
 }
 
 .button_newPok:active{
@@ -185,6 +204,9 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
     gap: 5px;
 }
 .cardPok{
+  animation: fadeInAnimationError ease 1s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -200,13 +222,14 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
 
 .cardPok img{
   display: block;
-  height: 90px;
+  height: 95px;
   max-width: 150px;
   position: relative;
   margin: 10px auto;
+  transition: transform 300ms;
 }
 .cardPok img:hover{
-  height: 95px;
+  transform: scale(1.08);
 }
 
 .namePok{
@@ -341,6 +364,9 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
 }
 
 .cardPokDetail{
+  animation: fadeInAnimationError ease 1s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -386,6 +412,9 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
 }
 
 .formPok{
+  animation: fadeInAnimationError ease 1s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
   margin-top: 20px;
   display: flex;
   flex-direction: column;
@@ -417,6 +446,9 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
 }
 
 .inputErr{
+  animation: fadeInAnimationError ease 1s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 
   border-color: #d31a1a !important;
   box-shadow: 0 0 0 1px #d31a1a !important;
@@ -424,13 +456,28 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
 }
 
 .pmsgErr{
+  animation: fadeInAnimationError ease 1s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
   font-size: 12px; 
   font-weight: 600;
   color: red;
   text-align: center;
 }
 
+@keyframes fadeInAnimationError {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
+}
+
 .smsgExito {
+  animation: fadeInAnimationError ease 1s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
   border: solid 1px #31a30a;
     padding: 5px;
     border-radius: 5px;
@@ -438,6 +485,9 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
     text-align: center;
 }
 .smsgError {
+  animation: fadeInAnimationError ease 1s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
   border: solid 1px red;
     padding: 5px;
     border-radius: 5px;
@@ -616,7 +666,10 @@ box-shadow: 3px 3px 1px rgb(206 206 209);
 }
 
 .letsGo{
-  text-align: center;
+animation: fadeInAnimationError ease 2s;
+animation-iteration-count: 1;
+animation-fill-mode: forwards; 
+text-align: center;
 font-size: 30px;
 margin: 21px 0px;
 font-weight: 900;

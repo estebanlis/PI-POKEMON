@@ -1,4 +1,5 @@
 import React from 'react'
+import arrow from '../assets/images/arrow.svg';
 
 
 export default function Filters({ types, filters, setFilters, fsource, setFsource }) {
@@ -126,8 +127,8 @@ export default function Filters({ types, filters, setFilters, fsource, setFsourc
             <div className='fsource'>
                 <span>aZ <input onChange={handleFilters} type='radio' name='filtersAZAttack' value='orderAZ' defaultChecked={filters.AZ} /></span>
                 <span>zA <input onChange={handleFilters} type='radio' name='filtersAZAttack' value='orderZA' defaultChecked={filters.ZA} /></span>
-                <span>Attack ++ <input onChange={handleFilters} type='radio' name='filtersAZAttack' value='orderUpAttack' defaultChecked={filters.orderUpAttack} /></span>
-                <span>Attack -- <input onChange={handleFilters} type='radio' name='filtersAZAttack' value='orderDownAttack' defaultChecked={filters.orderDownAttack} /></span>
+                <span>Attack <img src={arrow} alt=''style={{height: "10px",}} />  <input onChange={handleFilters} type='radio' name='filtersAZAttack' value='orderUpAttack' defaultChecked={filters.orderUpAttack} /></span>
+                <span>Attack <img src={arrow} alt=''style={{height: "10px",transform: "rotate(180deg)",}} /> <input onChange={handleFilters} type='radio' name='filtersAZAttack' value='orderDownAttack' defaultChecked={filters.orderDownAttack} /></span>
                 <select style={{
                     borderRadius: "5px", fontFamily: "sans-serif", fontSize: "12px",
                     fontWeight: "600", padding: "3px 7px",

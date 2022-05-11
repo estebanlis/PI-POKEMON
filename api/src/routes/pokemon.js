@@ -169,7 +169,6 @@ router.get('/', async (req, res, next) => {
 
         })
 
-        console.log(pok)
         return res.json([...pokMap, ...pokemons]);
 
     } catch (error) {
@@ -178,6 +177,8 @@ router.get('/', async (req, res, next) => {
     }
 
 });
+
+/////////////// Ruta para pokemon por ID //////////////////////////////////////
 
 router.get('/:id', async (req, res) => {
 
@@ -209,32 +210,38 @@ router.get('/:id', async (req, res) => {
 
     } else {
 
+        let obj = {};
+        let pok = {};
         id = Number(id.substring(0, id.length - 1));
 
         try {
 
-            let pok = await Pokemon.findByPk(id, {
+            pok = await Pokemon.findByPk(id, {
                 include: {
                     model: Type,
                     attributes: ['name']
                 }
             });
 
+            if(pok !== null){
 
-            let obj = {
-                id: pok.idB,
-                name: pok.name,
-                hp: pok.hp,
-                attack: pok.attack,
-                defense: pok.defense,
-                speed: pok.speed,
-                height: pok.height,
-                weight: pok.weight,
-                image: pok.image,
-                type: pok.types?.map(t => t.name)
+                    obj = {
+                    id: pok.idB,
+                    name: pok.name,
+                    hp: pok.hp,
+                    attack: pok.attack,
+                    defense: pok.defense,
+                    speed: pok.speed,
+                    height: pok.height,
+                    weight: pok.weight,
+                    image: pok.image,
+                    type: pok.types?.map(t => t.name)
+                }
+    
+                return res.json(obj);
+
             }
-
-            return res.json(obj);
+            
 
         } catch (error) {
             return res.status(404).json({ msg: 'fail' });
@@ -275,24 +282,17 @@ router.post('/', async (req, res) => {
 
 
         } catch (error) {
-            //res.status(404).json(error.message);  
-
-
-
+           
         }
         try {
 
             let pokemon = await axios.get(urlApi + '/' + name);
-            //console.log(pokemon.toJSON());
+            
 
             return res.json({ msgDbName: 'nameExist' });
 
         } catch (error) {
-
-
-
-            //res.status(400).json({ message: 'fail', status: 400 });
-
+  
         }
 
     }
@@ -318,11 +318,10 @@ router.post('/', async (req, res) => {
         res.json({ msg: 'ok' });
 
     } catch (error) {
-        //console.log(error.message);
+        
         return res.status(404).json({ msgF: 'fail' });
-        //return res.status(404).json(error.message); 
+        
     }
-
 });
 
 module.exports = router;

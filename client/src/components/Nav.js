@@ -43,8 +43,9 @@ export default function Nav() {
 
       </header>
       <nav className='menu'>
-        <Link to='NewPokemon'><span className='button_newPok'>Create Pokemon</span></Link>
+        
         <SearchBox input={input} handleChange={handleChange} handleSubmit={handleSubmit} />
+        <Link to='NewPokemon'><span className='button_newPok'><span style={{fontSize: "16px"}}> + </span>Create Pokemon</span></Link>
       </nav>
 
       <Outlet />
